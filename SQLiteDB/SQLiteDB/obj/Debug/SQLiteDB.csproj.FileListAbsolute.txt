@@ -1,0 +1,17 @@
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\SQLiteDB.exe.config
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\SQLiteDB.exe
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\SQLiteDB.pdb
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\obj\Debug\SQLiteDB.csproj.CoreCompileInputs.cache
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\obj\Debug\SQLiteDB.exe
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\obj\Debug\SQLiteDB.pdb
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\EntityFramework.dll
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\System.Data.SQLite.dll
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\EntityFramework.xml
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\System.Data.SQLite.xml
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\Config\AppSettings.config
+C:\Users\Developer\source\repos\SQLiteDB\SQLiteDB\bin\Debug\Config\ConnectionStrings.config

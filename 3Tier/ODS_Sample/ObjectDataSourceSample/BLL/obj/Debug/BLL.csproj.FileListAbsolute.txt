@@ -1,0 +1,36 @@
+C:\Project\ObjectDataSourceSample\BLL\bin\Debug\BLL.dll
+C:\Project\ObjectDataSourceSample\BLL\bin\Debug\BLL.pdb
+C:\Project\ObjectDataSourceSample\BLL\bin\Debug\DAO.dll
+C:\Project\ObjectDataSourceSample\BLL\bin\Debug\Domain.dll
+C:\Project\ObjectDataSourceSample\BLL\bin\Debug\DAO.pdb
+C:\Project\ObjectDataSourceSample\BLL\bin\Debug\Domain.pdb
+C:\Project\ObjectDataSourceSample\BLL\obj\Debug\ResolveAssemblyReference.cache
+C:\Project\ObjectDataSourceSample\BLL\obj\Debug\BLL.dll
+C:\Project\ObjectDataSourceSample\BLL\obj\Debug\BLL.pdb
+C:\Users\Shin\Documents\하이웍스 받은파일\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\BLL.dll
+C:\Users\Shin\Documents\하이웍스 받은파일\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\BLL.pdb
+C:\Users\Shin\Documents\하이웍스 받은파일\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\DAO.dll
+C:\Users\Shin\Documents\하이웍스 받은파일\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\Domain.dll
+C:\Users\Shin\Documents\하이웍스 받은파일\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\DAO.pdb
+C:\Users\Shin\Documents\하이웍스 받은파일\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\Domain.pdb
+C:\Users\Shin\Documents\하이웍스 받은파일\ODS_Sample\ObjectDataSourceSample\BLL\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Shin\Documents\하이웍스 받은파일\ODS_Sample\ObjectDataSourceSample\BLL\obj\Debug\BLL.dll
+C:\Users\Shin\Documents\하이웍스 받은파일\ODS_Sample\ObjectDataSourceSample\BLL\obj\Debug\BLL.pdb
+D:\example\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\BLL.dll
+D:\example\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\BLL.pdb
+D:\example\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\DAO.dll
+D:\example\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\Domain.dll
+D:\example\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\DAO.pdb
+D:\example\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\Domain.pdb
+D:\example\ODS_Sample\ObjectDataSourceSample\BLL\obj\Debug\ResolveAssemblyReference.cache
+D:\example\ODS_Sample\ObjectDataSourceSample\BLL\obj\Debug\BLL.dll
+D:\example\ODS_Sample\ObjectDataSourceSample\BLL\obj\Debug\BLL.pdb
+C:\Users\TaeGyu\Desktop\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\BLL.dll
+C:\Users\TaeGyu\Desktop\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\BLL.pdb
+C:\Users\TaeGyu\Desktop\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\DAO.dll
+C:\Users\TaeGyu\Desktop\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\Domain.dll
+C:\Users\TaeGyu\Desktop\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\DAO.pdb
+C:\Users\TaeGyu\Desktop\ODS_Sample\ObjectDataSourceSample\BLL\bin\Debug\Domain.pdb
+C:\Users\TaeGyu\Desktop\ODS_Sample\ObjectDataSourceSample\BLL\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\TaeGyu\Desktop\ODS_Sample\ObjectDataSourceSample\BLL\obj\Debug\BLL.dll
+C:\Users\TaeGyu\Desktop\ODS_Sample\ObjectDataSourceSample\BLL\obj\Debug\BLL.pdb

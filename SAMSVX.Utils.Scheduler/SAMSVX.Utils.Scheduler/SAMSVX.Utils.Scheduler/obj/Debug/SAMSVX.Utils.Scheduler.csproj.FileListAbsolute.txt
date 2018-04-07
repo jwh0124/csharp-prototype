@@ -1,0 +1,5 @@
+C:\Project\SAMSVX.Utils.Scheduler\SAMSVX.Utils.Scheduler\bin\Debug\SAMSVX.Utils.Scheduler.dll
+C:\Project\SAMSVX.Utils.Scheduler\SAMSVX.Utils.Scheduler\bin\Debug\SAMSVX.Utils.Scheduler.pdb
+C:\Project\SAMSVX.Utils.Scheduler\SAMSVX.Utils.Scheduler\obj\Debug\ResolveAssemblyReference.cache
+C:\Project\SAMSVX.Utils.Scheduler\SAMSVX.Utils.Scheduler\obj\Debug\SAMSVX.Utils.Scheduler.dll
+C:\Project\SAMSVX.Utils.Scheduler\SAMSVX.Utils.Scheduler\obj\Debug\SAMSVX.Utils.Scheduler.pdb

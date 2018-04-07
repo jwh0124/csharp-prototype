@@ -1,0 +1,12 @@
+c:\users\developer\documents\visual studio 2010\Projects\WebSites\WebSites\bin\WebSites.dll
+c:\users\developer\documents\visual studio 2010\Projects\WebSites\WebSites\bin\WebSites.pdb
+c:\users\developer\documents\visual studio 2010\Projects\WebSites\WebSites\obj\Debug\ResolveAssemblyReference.cache
+c:\users\developer\documents\visual studio 2010\Projects\WebSites\WebSites\obj\Debug\WebSites.dll.licenses
+c:\users\developer\documents\visual studio 2010\Projects\WebSites\WebSites\obj\Debug\WebSites.dll
+c:\users\developer\documents\visual studio 2010\Projects\WebSites\WebSites\obj\Debug\WebSites.pdb
+C:\Users\Developer\Desktop\ProtoType\WebSiteConsoleRun\WebSites\WebSites\bin\WebSites.dll
+C:\Users\Developer\Desktop\ProtoType\WebSiteConsoleRun\WebSites\WebSites\bin\WebSites.pdb
+C:\Users\Developer\Desktop\ProtoType\WebSiteConsoleRun\WebSites\WebSites\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Developer\Desktop\ProtoType\WebSiteConsoleRun\WebSites\WebSites\obj\Debug\WebSites.dll.licenses
+C:\Users\Developer\Desktop\ProtoType\WebSiteConsoleRun\WebSites\WebSites\obj\Debug\WebSites.dll
+C:\Users\Developer\Desktop\ProtoType\WebSiteConsoleRun\WebSites\WebSites\obj\Debug\WebSites.pdb

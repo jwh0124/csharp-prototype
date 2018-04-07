@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopShelfProtoType", "TopShelfProtoType\TopShelfProtoType.csproj", "{396746C1-B92B-49FF-B192-21404B4199F7}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{A28660C8-7633-41C3-9FE6-282E09BFBCCD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{396746C1-B92B-49FF-B192-21404B4199F7}.Debug|x86.ActiveCfg = Debug|x86
+		{396746C1-B92B-49FF-B192-21404B4199F7}.Debug|x86.Build.0 = Debug|x86
+		{396746C1-B92B-49FF-B192-21404B4199F7}.Release|x86.ActiveCfg = Release|x86
+		{396746C1-B92B-49FF-B192-21404B4199F7}.Release|x86.Build.0 = Release|x86
+		{A28660C8-7633-41C3-9FE6-282E09BFBCCD}.Debug|x86.ActiveCfg = Debug
+		{A28660C8-7633-41C3-9FE6-282E09BFBCCD}.Release|x86.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace=""
+        xmlns="http://ibatis.apache.org/mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  <alias>
+    <typeAlias alias="Hrinfo" type="Domain.Chrinfo, Domain"/>
+  </alias>
+
+  <resultMaps>
+    <resultMap id ="getHrinfoListResult" class="Domain.CHrinfo">
+      <result property="Seq" column="seq"/>
+      <result property="Emp_no" column="emp_no"/>
+      <result property="Emp_nm" column="emp_nm"/>
+      <result property="Phone_no" column="phone_no"/>
+      <result property="Sex" column="sex"/>
+      <result property="Remarks" column="remarks"/>
+    </resultMap>
+  </resultMaps>
+
+  <!--cache-->
+  <cacheModels>
+    <cacheModel id="HrinfoCacheModel" implementation="LRU">
+      <flushInterval hours="24"/>
+      <flushOnExecute statement="setHrinfo"/>
+      <property name="CacheSize" value="100"/>
+    </cacheModel>
+  </cacheModels>
+
+  <statements>
+    <statement id="getHrinfoList" resultMap="getHrinfoListResult" >
+      SELECT seq, emp_no, emp_nm, phone_no, sex, remarks
+      FROM tbl_hrinfo
+    </statement>
+
+    <statement id="getHrinfoListWithPagingByFilter" resultMap="getHrinfoListResult" parameterClass="Domain.CHrinfo_Search">
+      SELECT seq, emp_no, emp_nm, phone_no, sex, remarks
+      FROM (
+      SELECT ROW_NUMBER() OVER (ORDER BY #SortColumns#) AS rownumber,
+      seq, emp_no, emp_nm, phone_no, sex, remarks
+      FROM tbl_hrinfo
+      <dynamic prepend="WHERE">
+        <isNotNull property="Seq_criteria" prepend="AND">
+          <isEqual property="Seq_criteria" compareValue="Equal">
+            seq = #Seq#
+          </isEqual>
+          <isEqual property="Seq_criteria" compareValue="NotEqual">
+            seq != #Seq#
+          </isEqual>
+          <isEqual property="Seq_criteria" compareValue="Less">
+            seq <![CDATA[<]]> #Seq#
+          </isEqual>
+          <isEqual property="Seq_criteria" compareValue="LessOrEqual">
+            seq <![CDATA[<=]]> #Seq#
+          </isEqual>
+          <isEqual property="Seq_criteria" compareValue="Greater">
+            seq <![CDATA[>]]> #Seq#
+          </isEqual>
+          <isEqual property="Seq_criteria" compareValue="GreaterOrEqual">
+            seq <![CDATA[>=]]> #Seq#
+          </isEqual>
+        </isNotNull>
+        <isNotNull property="Emp_nm_criteria" prepend="AND">
+          <isEqual property="Emp_nm_criteria" compareValue="StartsWith">
+            emp_nm LIKE $Emp_nm$ + '%'
+          </isEqual>
+          <isEqual property="Emp_nm_criteria" compareValue="Contains">
+            emp_nm LIKE '%' + $Emp_nm$ + '%'
+          </isEqual>
+          <isEqual property="Emp_nm_criteria" compareValue="Not">
+            emp_nm NOT LIKE '%' + $Emp_nm$ + '%'
+          </isEqual>
+          <isEqual property="Emp_nm_criteria" compareValue="EndsWith">
+            emp_nm LIKE '%' + $Emp_nm$
+          </isEqual>
+          <isEqual property="Emp_nm_criteria" compareValue="Equal">
+            emp_nm = $Emp_nm$
+          </isEqual>
+          <isEqual property="Emp_nm_criteria" compareValue="NotEqual">
+            emp_nm != $Emp_nm$
+          </isEqual>
+        </isNotNull>
+        <isNotNull property="Emp_no_criteria" prepend="AND">
+          <isEqual property="Emp_no_criteria" compareValue="StartsWith">
+            emp_no LIKE $Emp_no$ + '%'
+          </isEqual>
+          <isEqual property="Emp_no_criteria" compareValue="Contains">
+            emp_no LIKE '%' + $Emp_no$ + '%'
+          </isEqual>
+          <isEqual property="Emp_no_criteria" compareValue="Not">
+            emp_no NOT LIKE '%' + $Emp_no$ + '%'
+          </isEqual>
+          <isEqual property="Emp_no_criteria" compareValue="EndsWith">
+            emp_no LIKE '%' + $Emp_no$
+          </isEqual>
+          <isEqual property="Emp_no_criteria" compareValue="Equal">
+            emp_no = $Emp_no$
+          </isEqual>
+          <isEqual property="Emp_no_criteria" compareValue="NotEqual">
+            emp_no != $Emp_no$
+          </isEqual>
+        </isNotNull>
+        <isNotNull property="Phone_no_criteria" prepend="AND">
+          <isEqual property="Phone_no_criteria" compareValue="StartsWith">
+            phone_no LIKE $Phone_no$ + '%'
+          </isEqual>
+          <isEqual property="Phone_no_criteria" compareValue="Contains">
+            phone_no LIKE '%' + $Phone_no$ + '%'
+          </isEqual>
+          <isEqual property="Phone_no_criteria" compareValue="Not">
+            phone_no NOT LIKE '%' + $Phone_no$ + '%'
+          </isEqual>
+          <isEqual property="Phone_no_criteria" compareValue="EndsWith">
+            phone_no LIKE '%' + $Phone_no$
+          </isEqual>
+          <isEqual property="Phone_no_criteria" compareValue="Equal">
+            phone_no = $Phone_no$
+          </isEqual>
+          <isEqual property="Phone_no_criteria" compareValue="NotEqual">
+            phone_no != $Phone_no$
+          </isEqual>
+        </isNotNull>
+        <isNotNull property="Sex_criteria" prepend="AND">
+          <isEqual property="Sex_criteria" compareValue="StartsWith">
+            sex LIKE $Sex$ + '%'
+          </isEqual>
+          <isEqual property="Sex_criteria" compareValue="Contains">
+            sex LIKE '%' + $Sex$ + '%'
+          </isEqual>
+          <isEqual property="Sex_criteria" compareValue="Not">
+            sex NOT LIKE '%' + $Sex$ + '%'
+          </isEqual>
+          <isEqual property="Sex_criteria" compareValue="EndsWith">
+            sex LIKE '%' + $Sex$
+          </isEqual>
+          <isEqual property="Sex_criteria" compareValue="Equal">
+            sex = $Sex$
+          </isEqual>
+          <isEqual property="Sex_criteria" compareValue="NotEqual">
+            sex != $Sex$
+          </isEqual>
+        </isNotNull>
+        <isNotNull property="Remarks_criteria" prepend="AND">
+          <isEqual property="Remarks_criteria" compareValue="StartsWith">
+            remarks LIKE $Remarks$ + '%'
+          </isEqual>
+          <isEqual property="Remarks_criteria" compareValue="Contains">
+            remarks LIKE '%' + $Remarks$ + '%'
+          </isEqual>
+          <isEqual property="Remarks_criteria" compareValue="Not">
+            remarks NOT LIKE '%' + $Remarks$ + '%'
+          </isEqual>
+          <isEqual property="Remarks_criteria" compareValue="EndsWith">
+            remarks LIKE '%' + $Remarks$
+          </isEqual>
+          <isEqual property="Remarks_criteria" compareValue="Equal">
+            remarks = $Remarks$
+          </isEqual>
+          <isEqual property="Remarks_criteria" compareValue="NotEqual">
+            remarks != $Remarks$
+          </isEqual>
+        </isNotNull>
+      </dynamic>
+
+      ) AS a
+      WHERE rownumber BETWEEN #StartRecord# + 1 AND #StartRecord# + #MaxRecords#
+    </statement>
+
+    <insert id="SetHrinfoList" resultMap="getHrinfoListResult" parameterClass="Domain.CHrinfo">
+      INSERT INTO tbl_hrinfo (emp_no, emp_nm, phone_no, sex, remarks)
+      VALUES(#Emp_no#, #Emp_nm#, #Phone_no#, #Sex#, #Remarks#)
+    </insert>
+    
+    <delete id="DelHrinfoList" resultMap="getHrinfoListResult" parameterClass="Domain.CHrinfo">
+      DELETE FROM tbl_hrinfo WHERE Seq = #Seq#
+    </delete>
+
+    <update id="UpHrinfoList" resultMap="getHrinfoListResult" parameterClass="Domain.CHrinfo">
+      UPDATE tbl_hrinfo
+      SET Emp_no = #Emp_no#,
+      Emp_nm = #Emp_nm#,
+      Phone_no = #Phone_no#,
+      Sex = #Sex#,
+      Remarks = #Remarks#
+      WHERE Seq = #Seq#
+    </update>
+    <statement id="getHrinfoCount" resultClass="int">
+      SELECT COUNT(seq) FROM tbl_hrinfo
+    </statement>
+    
+    <statement id="getHrinfoCountByFilter" resultClass="int">
+      SELECT COUNT(seq)
+      FROM tbl_hrinfo
+      <dynamic prepend="WHERE">
+        <isNotNull property="Seq_criteria" prepend="AND">
+          <isEqual property="Seq_criteria" compareValue="Equal">
+            seq = #Seq#
+          </isEqual>
+          <isEqual property="Seq_criteria" compareValue="NotEqual">
+            seq != #Seq#
+          </isEqual>
+          <isEqual property="Seq_criteria" compareValue="Less">
+            seq <![CDATA[<]]> #Seq#
+          </isEqual>
+          <isEqual property="Seq_criteria" compareValue="LessOrEqual">
+            seq <![CDATA[<=]]> #Seq#
+          </isEqual>
+          <isEqual property="Seq_criteria" compareValue="Greater">
+            seq <![CDATA[>]]> #Seq#
+          </isEqual>
+          <isEqual property="Seq_criteria" compareValue="GreaterOrEqual">
+            seq <![CDATA[>=]]> #Seq#
+          </isEqual>
+        </isNotNull>
+        <isNotNull property="Emp_nm_criteria" prepend="AND">
+          <isEqual property="Emp_nm_criteria" compareValue="StartsWith">
+            emp_nm LIKE $Emp_nm$ + '%'
+          </isEqual>
+          <isEqual property="Emp_nm_criteria" compareValue="Contains">
+            emp_nm LIKE '%' + $Emp_nm$ + '%'
+          </isEqual>
+          <isEqual property="Emp_nm_criteria" compareValue="Not">
+            emp_nm NOT LIKE '%' + $Emp_nm$ + '%'
+          </isEqual>
+          <isEqual property="Emp_nm_criteria" compareValue="EndsWith">
+            emp_nm LIKE '%' + $Emp_nm$
+          </isEqual>
+          <isEqual property="Emp_nm_criteria" compareValue="Equal">
+            emp_nm = $Emp_nm$
+          </isEqual>
+          <isEqual property="Emp_nm_criteria" compareValue="NotEqual">
+            emp_nm != $Emp_nm$
+          </isEqual>
+        </isNotNull>
+        <isNotNull property="Emp_no_criteria" prepend="AND">
+          <isEqual property="Emp_no_criteria" compareValue="StartsWith">
+            emp_no LIKE $Emp_no$ + '%'
+          </isEqual>
+          <isEqual property="Emp_no_criteria" compareValue="Contains">
+            emp_no LIKE '%' + $Emp_no$ + '%'
+          </isEqual>
+          <isEqual property="Emp_no_criteria" compareValue="Not">
+            emp_no NOT LIKE '%' + $Emp_no$ + '%'
+          </isEqual>
+          <isEqual property="Emp_no_criteria" compareValue="EndsWith">
+            emp_no LIKE '%' + $Emp_no$
+          </isEqual>
+          <isEqual property="Emp_no_criteria" compareValue="Equal">
+            emp_no = $Emp_no$
+          </isEqual>
+          <isEqual property="Emp_no_criteria" compareValue="NotEqual">
+            emp_no != $Emp_no$
+          </isEqual>
+        </isNotNull>
+        <isNotNull property="Phone_no_criteria" prepend="AND">
+          <isEqual property="Phone_no_criteria" compareValue="StartsWith">
+            phone_no LIKE $Phone_no$ + '%'
+          </isEqual>
+          <isEqual property="Phone_no_criteria" compareValue="Contains">
+            phone_no LIKE '%' + $Phone_no$ + '%'
+          </isEqual>
+          <isEqual property="Phone_no_criteria" compareValue="Not">
+            phone_no NOT LIKE '%' + $Phone_no$ + '%'
+          </isEqual>
+          <isEqual property="Phone_no_criteria" compareValue="EndsWith">
+            phone_no LIKE '%' + $Phone_no$
+          </isEqual>
+          <isEqual property="Phone_no_criteria" compareValue="Equal">
+            phone_no = $Phone_no$
+          </isEqual>
+          <isEqual property="Phone_no_criteria" compareValue="NotEqual">
+            phone_no != $Phone_no$
+          </isEqual>
+        </isNotNull>
+        <isNotNull property="Sex_criteria" prepend="AND">
+          <isEqual property="Sex_criteria" compareValue="StartsWith">
+            sex LIKE $Sex$ + '%'
+          </isEqual>
+          <isEqual property="Sex_criteria" compareValue="Contains">
+            sex LIKE '%' + $Sex$ + '%'
+          </isEqual>
+          <isEqual property="Sex_criteria" compareValue="Not">
+            sex NOT LIKE '%' + $Sex$ + '%'
+          </isEqual>
+          <isEqual property="Sex_criteria" compareValue="EndsWith">
+            sex LIKE '%' + $Sex$
+          </isEqual>
+          <isEqual property="Sex_criteria" compareValue="Equal">
+            sex = $Sex$
+          </isEqual>
+          <isEqual property="Sex_criteria" compareValue="NotEqual">
+            sex != $Sex$
+          </isEqual>
+        </isNotNull>
+        <isNotNull property="Remarks_criteria" prepend="AND">
+          <isEqual property="Remarks_criteria" compareValue="StartsWith">
+            remarks LIKE $Remarks$ + '%'
+          </isEqual>
+          <isEqual property="Remarks_criteria" compareValue="Contains">
+            remarks LIKE '%' + $Remarks$ + '%'
+          </isEqual>
+          <isEqual property="Remarks_criteria" compareValue="Not">
+            remarks NOT LIKE '%' + $Remarks$ + '%'
+          </isEqual>
+          <isEqual property="Remarks_criteria" compareValue="EndsWith">
+            remarks LIKE '%' + $Remarks$
+          </isEqual>
+          <isEqual property="Remarks_criteria" compareValue="Equal">
+            remarks = $Remarks$
+          </isEqual>
+          <isEqual property="Remarks_criteria" compareValue="NotEqual">
+            remarks != $Remarks$
+          </isEqual>
+        </isNotNull>
+      </dynamic>
+    </statement>
+  </statements>
+</sqlMap>

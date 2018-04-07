@@ -1,0 +1,11 @@
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\bin\Debug\TopShelfProtoType.exe.config
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\bin\Debug\TopShelfProtoType.exe
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\bin\Debug\TopShelfProtoType.pdb
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\bin\Debug\Topshelf.pdb
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\bin\Debug\Topshelf.Log4Net.pdb
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\bin\Debug\Topshelf.NLog.pdb
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\bin\Debug\Topshelf.Rehab.pdb
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\bin\Debug\Topshelf.Supervise.pdb
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\obj\x86\Debug\TopShelfProtoType.exe
+C:\Users\Developer\Desktop\ProtoType\TopShelf\TopShelfProtoType\TopShelfProtoType\obj\x86\Debug\TopShelfProtoType.pdb

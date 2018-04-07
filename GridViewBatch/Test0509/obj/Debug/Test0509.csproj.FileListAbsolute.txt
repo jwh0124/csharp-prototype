@@ -1,0 +1,12 @@
+c:\users\developer\documents\visual studio 2010\Projects\Test0509\Test0509\bin\Test0509.dll
+c:\users\developer\documents\visual studio 2010\Projects\Test0509\Test0509\bin\Test0509.pdb
+c:\users\developer\documents\visual studio 2010\Projects\Test0509\Test0509\obj\Debug\ResolveAssemblyReference.cache
+c:\users\developer\documents\visual studio 2010\Projects\Test0509\Test0509\obj\Debug\Test0509.dll.licenses
+c:\users\developer\documents\visual studio 2010\Projects\Test0509\Test0509\obj\Debug\Test0509.dll
+c:\users\developer\documents\visual studio 2010\Projects\Test0509\Test0509\obj\Debug\Test0509.pdb
+C:\Users\Developer\Desktop\ProtoType\GridViewBatch\Test0509\bin\Test0509.dll
+C:\Users\Developer\Desktop\ProtoType\GridViewBatch\Test0509\bin\Test0509.pdb
+C:\Users\Developer\Desktop\ProtoType\GridViewBatch\Test0509\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Developer\Desktop\ProtoType\GridViewBatch\Test0509\obj\Debug\Test0509.dll.licenses
+C:\Users\Developer\Desktop\ProtoType\GridViewBatch\Test0509\obj\Debug\Test0509.dll
+C:\Users\Developer\Desktop\ProtoType\GridViewBatch\Test0509\obj\Debug\Test0509.pdb

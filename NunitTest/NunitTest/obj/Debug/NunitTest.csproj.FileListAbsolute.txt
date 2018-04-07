@@ -1,0 +1,9 @@
+C:\Users\Developer\source\repos\NunitTest\NunitTest\bin\Debug\NunitTest.exe.config
+C:\Users\Developer\source\repos\NunitTest\NunitTest\bin\Debug\NunitTest.exe
+C:\Users\Developer\source\repos\NunitTest\NunitTest\bin\Debug\NunitTest.pdb
+C:\Users\Developer\source\repos\NunitTest\NunitTest\bin\Debug\nunit.framework.dll
+C:\Users\Developer\source\repos\NunitTest\NunitTest\bin\Debug\nunit.framework.xml
+C:\Users\Developer\source\repos\NunitTest\NunitTest\obj\Debug\NunitTest.csprojResolveAssemblyReference.cache
+C:\Users\Developer\source\repos\NunitTest\NunitTest\obj\Debug\NunitTest.csproj.CoreCompileInputs.cache
+C:\Users\Developer\source\repos\NunitTest\NunitTest\obj\Debug\NunitTest.exe
+C:\Users\Developer\source\repos\NunitTest\NunitTest\obj\Debug\NunitTest.pdb

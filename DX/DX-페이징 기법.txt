@@ -1,0 +1,52 @@
+페이징 기법
+
+스크립트 :  var CustomPager = {
+            gotoBox_Init: function (s, e) {
+                s.SetText(1 + grid.GetPageIndex());
+            },
+            gotoBox_KeyPress: function (s, e) {
+                if (e.htmlEvent.keyCode != 13)
+                    return;
+                ASPxClientUtils.PreventEventAndBubble(e.htmlEvent);
+                CustomPager.applyGotoBoxValue(s);
+            },
+            gotoBox_ValueChanged: function (s, e) {
+                CustomPager.applyGotoBoxValue(s);
+            },
+            applyGotoBoxValue: function (textBox) {
+                if (grid.InCallback())
+                    return;
+                var pageIndex = parseInt(textBox.GetText()) - 1;
+                if (pageIndex < 0)
+                    pageIndex = 0;
+                grid.GotoPage(pageIndex);
+            }
+        };
+
+
+페이징 바 : <PagerBar>
+                        <table class="OptionsTable" style="width: 100%">
+                            <tr>
+                                <td>
+                                    <dx:ASPxGridViewTemplateReplacement ID="ASPxGridViewTemplateReplacement3" ReplacementType="Pager"
+                                        runat="server"></dx:ASPxGridViewTemplateReplacement>
+                                </td>
+                                <td align="right">
+                                    <dx:ASPxLabel ID="PageText" runat="server" Text="PageNumber :">
+                                    </dx:ASPxLabel>
+                                </td>
+                                <td>
+                                    <dx:ASPxTextBox runat="server" ID="GotoBox" Width="60">
+                                        <ClientSideEvents Init="CustomPager.gotoBox_Init" ValueChanged="CustomPager.gotoBox_ValueChanged"
+                                            KeyPress="CustomPager.gotoBox_KeyPress" />
+                                    </dx:ASPxTextBox>
+                                </td>
+                            </tr>
+                        </table>
+                    </PagerBar>
+
+
+세팅 : <SettingsDetail ShowDetailRow="true" AllowOnlyOneMasterRowExpanded="true" />
+                <SettingsBehavior ColumnResizeMode="NextColumn" AllowSelectByRowClick="true" />
+                <SettingsPager AlwaysShowPager="True" PageSize="20" Visible="true" />
+                <Settings ShowGroupPanel="True" ShowFilterRow="True" ShowFilterRowMenu="True" ShowFilterBar="Auto" />

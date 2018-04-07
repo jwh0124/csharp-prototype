@@ -1,0 +1,9 @@
+C:\Project\SAMSVX.Utils.Scheduler\ClientConsole\bin\Debug\ClientConsole.exe
+C:\Project\SAMSVX.Utils.Scheduler\ClientConsole\bin\Debug\ClientConsole.pdb
+C:\Project\SAMSVX.Utils.Scheduler\ClientConsole\bin\Debug\SAMSVX.Utils.Scheduler.dll
+C:\Project\SAMSVX.Utils.Scheduler\ClientConsole\bin\Debug\SAMSVX.Utils.Scheduler.pdb
+C:\Project\SAMSVX.Utils.Scheduler\ClientConsole\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Project\SAMSVX.Utils.Scheduler\ClientConsole\obj\x86\Debug\ClientConsole.exe
+C:\Project\SAMSVX.Utils.Scheduler\ClientConsole\obj\x86\Debug\ClientConsole.pdb
+C:\Project\SAMSVX.Utils.Scheduler\ClientConsole\bin\Debug\ClientConsole.exe.config
+C:\Project\SAMSVX.Utils.Scheduler\ClientConsole\bin\Debug\log4net.dll
