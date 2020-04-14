@@ -9,3 +9,15 @@ C:\Users\Developer\source\repos\NunitTest\ClassLibrary3\bin\Debug\NunitTestCode.
 C:\Users\Developer\source\repos\NunitTest\ClassLibrary3\bin\Debug\NunitTestCode.pdb
 C:\Users\Developer\source\repos\NunitTest\ClassLibrary3\obj\Debug\NunitTestCode.dll
 C:\Users\Developer\source\repos\NunitTest\ClassLibrary3\obj\Debug\NunitTestCode.pdb
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\bin\Debug\NunitTestCode.dll
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\bin\Debug\NunitTestCode.pdb
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\bin\Debug\nunit.framework.dll
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\bin\Debug\NunitTest.exe
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\bin\Debug\NunitTest.pdb
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\bin\Debug\NunitTest.exe.config
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\bin\Debug\nunit.framework.xml
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\obj\Debug\NunitTestCode.csprojAssemblyReference.cache
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\obj\Debug\NunitTestCode.csproj.CoreCompileInputs.cache
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\obj\Debug\NunitTestCode.csproj.CopyComplete
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\obj\Debug\NunitTestCode.dll
+E:\CUBOX\Private\CSharp\NunitTest\ClassLibrary3\obj\Debug\NunitTestCode.pdb
