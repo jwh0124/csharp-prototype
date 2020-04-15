@@ -23,6 +23,7 @@ namespace ServicePrototype
                 .UseSystemd()
                 .ConfigureServices((hostContext, services) =>
                 {
+                    
                     services.AddHostedService<Worker>();
                 });
     }

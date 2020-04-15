@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace ServicePrototype
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            /*while (!stoppingToken.IsCancellationRequested)
             {
                 var result = await httpClient.GetAsync("https://www.google.com");
                 
@@ -45,6 +46,12 @@ namespace ServicePrototype
                 }
 
                 await Task.Delay(5000, stoppingToken);
+            }*/
+
+            using (var db = new PrototypeContext())
+            {
+                var user = db.Users.First();
+                Console.WriteLine("ID : {0}, Name: {1}", user.id, user.name);
             }
         }
     }
