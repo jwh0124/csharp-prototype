@@ -11,5 +11,6 @@ namespace ServicePrototype
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Menu> Menus { get; set; }
     }
 }

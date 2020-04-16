@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using ServicePrototype.Common;
+using System.Data.Entity;
 
 namespace ServicePrototype
 {
@@ -15,6 +10,7 @@ namespace ServicePrototype
         
         public static void Main(string[] args)
         {
+            Database.SetInitializer<PrototypeContext>(new DatabaseInitializer());
             CreateHostBuilder(args).Build().Run();
         }
 
