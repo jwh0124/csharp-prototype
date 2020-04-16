@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>dotnet-ServicePrototype-65C51797-F793-4D86-B4CB-B59ADF73E251</UserSecretsId>
+    <SignAssembly>false</SignAssembly>
+    <StartupObject>ServicePrototype.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,5 +20,9 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="3.1.3" />
     <PackageReference Include="sqlite" Version="3.13.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.112" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\" />
   </ItemGroup>
 </Project>

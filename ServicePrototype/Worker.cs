@@ -53,6 +53,7 @@ namespace ServicePrototype
                 var user = db.Users.First();
                 Console.WriteLine("ID : {0}, Name: {1}", user.id, user.name);
             }
+            await Task.Delay(5000, stoppingToken);
         }
     }
 }
