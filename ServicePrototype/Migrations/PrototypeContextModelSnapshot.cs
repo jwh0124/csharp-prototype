@@ -15,6 +15,20 @@ namespace ServicePrototype.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.3");
 
+            modelBuilder.Entity("ServicePrototype.Models.Menu", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.ToTable("tbl_menus");
+                });
+
             modelBuilder.Entity("ServicePrototype.Models.User", b =>
                 {
                     b.Property<int>("id")

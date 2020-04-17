@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using ServicePrototype.Models;
+using System.IO;
 
 namespace ServicePrototype
 {
@@ -7,7 +9,12 @@ namespace ServicePrototype
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=text.db");
+            // TODO : GetConfiguration Common Integration
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                                                    .SetBasePath(Directory.GetCurrentDirectory())
+                                                    .AddJsonFile("appsettings.json")
+                                                    .Build();
+            optionsBuilder.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
         }
 
         public DbSet<User> Users { get; set; }

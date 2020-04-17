@@ -48,11 +48,12 @@ namespace ServicePrototype
                 await Task.Delay(5000, stoppingToken);
             }*/
 
-            using (var db = new PrototypeContext())
+            using (var userDb = new PrototypeContext())
             {
-                var user = db.Users.First();
+                var user = userDb.Users.First();
                 Console.WriteLine("ID : {0}, Name: {1}", user.id, user.name);
             }
+
             await Task.Delay(5000, stoppingToken);
         }
     }
