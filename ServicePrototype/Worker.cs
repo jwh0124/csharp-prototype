@@ -35,10 +35,10 @@ namespace ServicePrototype
             /*while (!stoppingToken.IsCancellationRequested)
             {
                 var result = await httpClient.GetAsync("https://www.google.com");
-                
+
                 if (result.IsSuccessStatusCode)
                 {
-                    _logger.LogInformation("Worker running at: {time}, Status Code {StatusCode}", DateTimeOffset.Now, result.StatusCode );
+                    _logger.LogInformation("Worker running at: {time}, Status Code {StatusCode}", DateTimeOffset.Now, result.StatusCode);
                 }
                 else
                 {
@@ -50,8 +50,8 @@ namespace ServicePrototype
 
             using (var userDb = new PrototypeContext())
             {
-                var user = userDb.Users.First();
-                Console.WriteLine("ID : {0}, Name: {1}", user.id, user.name);
+                var user = userDb.Users.ToList();
+                Console.WriteLine("ID : {0}, Name: {1}", user.First().id, user.First().name);
             }
 
             await Task.Delay(5000, stoppingToken);
