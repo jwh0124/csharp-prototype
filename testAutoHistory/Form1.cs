@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -27,6 +28,7 @@ namespace testAutoHistory
             {
                 _context.Add(new User { name = txt_name.Text });
                 _context.SaveChanges();
+
                 txt_name.Text = null;
                 MessageBox.Show("등록되었습니다.");
                 btn_select_Click(sender, e);
@@ -42,9 +44,16 @@ namespace testAutoHistory
             txt_name.Text = null;
             list_name.Items.Clear();
 
-            foreach (User user in _context.Users.ToList())
+            if(_context.Users.Count() > 0)
             {
-                list_name.Items.Add(user.name);
+                foreach (User user in _context.Users.ToList())
+                {
+                    list_name.Items.Add(user.name);
+                }
+            }
+            else
+            {
+                MessageBox.Show("사용자가 없습니다.");
             }
         }
 
@@ -55,10 +64,12 @@ namespace testAutoHistory
             {
                 if (!String.IsNullOrEmpty(txt_name.Text))
                 {
-                    var user = _context.Users.Where(x => EF.Property<string>(x, "name") == list_name.SelectedItems[0].Text).First();
+                    
+                    var user = _context.Users.Where(x => x.name == list_name.SelectedItems[0].Text).SingleOrDefault();
                     user.name = txt_name.Text;
                     _context.Users.Update(user);
                     _context.SaveChanges();
+
                     txt_name.Text = null;
                     btn_select_Click(sender, e);
                     MessageBox.Show("수정되었습니다.");
@@ -79,12 +90,14 @@ namespace testAutoHistory
         {
             if (list_name.SelectedItems.Count > 0)
             {
-                var user = _context.Users.Where(x => EF.Property<string>(x, "name") == list_name.SelectedItems[0].Text).First();
+
+                var user = _context.Users.Where(x => x.name == list_name.SelectedItems[0].Text).SingleOrDefault();
                 _context.Users.Remove(user);
                 _context.SaveChanges();
+
                 txt_name.Text = null;
-                btn_select_Click(sender, e);
                 MessageBox.Show("삭제되었습니다.");
+                btn_select_Click(sender, e);
             }
             else
             {

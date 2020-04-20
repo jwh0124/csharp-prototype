@@ -68,7 +68,7 @@
             this.list_name.HideSelection = false;
             this.list_name.Location = new System.Drawing.Point(143, 185);
             this.list_name.Name = "list_name";
-            this.list_name.Size = new System.Drawing.Size(121, 97);
+            this.list_name.Size = new System.Drawing.Size(237, 97);
             this.list_name.TabIndex = 3;
             this.list_name.UseCompatibleStateImageBehavior = false;
             this.list_name.SelectedIndexChanged += new System.EventHandler(this.list_name_SelectedIndexChanged);
@@ -85,7 +85,7 @@
             // 
             // btn_delete
             // 
-            this.btn_delete.Location = new System.Drawing.Point(270, 214);
+            this.btn_delete.Location = new System.Drawing.Point(386, 214);
             this.btn_delete.Name = "btn_delete";
             this.btn_delete.Size = new System.Drawing.Size(75, 23);
             this.btn_delete.TabIndex = 0;
@@ -95,7 +95,7 @@
             // 
             // btn_update
             // 
-            this.btn_update.Location = new System.Drawing.Point(270, 185);
+            this.btn_update.Location = new System.Drawing.Point(386, 185);
             this.btn_update.Name = "btn_update";
             this.btn_update.Size = new System.Drawing.Size(75, 23);
             this.btn_update.TabIndex = 0;
