@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "CUDevice": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
