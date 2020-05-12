@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace CUPrototype.Profiles
 {
-    public class UserProfile : Profile
+    public class MapperProfiles : Profile
     {
-        public UserProfile()
+        public MapperProfiles()
         {
             CreateMap<User, UserDto>();
         }

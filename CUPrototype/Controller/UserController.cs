@@ -3,8 +3,6 @@ using CUPrototype.DTO;
 using CUPrototype.Models;
 using CUPrototype.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Update.Internal;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Identity;
 using System.Collections.Generic;
 
 namespace CUPrototype.Controller
@@ -30,6 +28,7 @@ namespace CUPrototype.Controller
             {
                 return NotFound();
             }
+
             return Ok(_mapper.Map<UserDto>(user));
         }
 
@@ -38,7 +37,7 @@ namespace CUPrototype.Controller
         {
             var userList = _userRepository.GetList();
 
-            if(userList == null)
+            if(userList.Count == 0)
             {
                 return NotFound();
             }

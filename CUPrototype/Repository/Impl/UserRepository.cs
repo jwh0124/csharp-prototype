@@ -8,21 +8,21 @@ namespace CUPrototype.Service.Impl
 {
     public class UserRepository : IUserRepository
     {
-        private DatabaseContext databaseContext;
+        private DatabaseContext _dbContext;
 
-        public UserRepository(DatabaseContext databaseContext)
+        public UserRepository(DatabaseContext dbContext)
         {
-            this.databaseContext = databaseContext;
+            _dbContext = dbContext;
         }
 
-        public IEnumerable<User> GetList()
+        public List<User> GetList()
         {
-            return databaseContext.Users.ToList();
+            return _dbContext.Users.ToList();
         }
 
         public User GetUser(int id)
         {
-            return databaseContext.Users.FirstOrDefault(p => p.Id == id);
+            return _dbContext.Users.FirstOrDefault(p => p.Id == id);
         }
 
         public void SetUser(User user)
@@ -32,13 +32,8 @@ namespace CUPrototype.Service.Impl
                 throw new ArgumentNullException(nameof(user));
             }
 
-            databaseContext.Add(user);
-            databaseContext.SaveChanges();
-        }
-
-        List<User> IUserRepository.GetList()
-        {
-            return databaseContext.Users.ToList();
+            _dbContext.Add(user);
+            _dbContext.SaveChanges();
         }
     }
 }
