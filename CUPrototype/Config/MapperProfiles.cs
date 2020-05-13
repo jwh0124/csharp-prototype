@@ -10,6 +10,7 @@ namespace CUPrototype.Profiles
         public MapperProfiles()
         {
             CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
         }
     }
 }

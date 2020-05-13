@@ -6,10 +6,13 @@ namespace CUPrototype.Service
 {
     public interface IUserRepository
     {
+        public List<User> GetUserList();
         public User GetUser(int id);
 
-        public void SetUser(User user);
+        public void InsertUser(User user);
 
-        public List<User> GetList();
+        public void UpdateUser(User user);
+
+        public void DeleteUser(User user);
     }
 }
