@@ -1,41 +1,35 @@
-﻿using AutoMapper;
-using CUPrototype.Config;
-using CUPrototype.Controller;
+﻿using CUPrototype.Controller;
 using CUPrototype.DTO;
-using CUPrototype.Models;
-using CUPrototype.Profiles;
 using CUPrototype.Service;
 using CUPrototype.Service.Impl;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using TestCUPrototype.Config;
 using Xunit;
 
-namespace TestCUPrototype.TestController
+namespace TestCUPrototype.Service
 {
-    public class TestUser : IDisposable
+    public class User : TestServiceProvider, IDisposable
     {
-        private readonly IMapper _mapper;
-        private readonly DatabaseContext _context;
         private readonly IUserRepository _repository;
         private readonly UserController _controller;
 
-        public TestUser()
+        public User()
         {
-            _mapper = new MapperConfiguration(c => { c.AddProfile(new MapperProfiles()); }).CreateMapper();
-            _context = new DatabaseContext(new DbContextOptionsBuilder<DatabaseContext>().UseInMemoryDatabase("test").Options);
-            _repository = new UserRepository(_context);
-            _controller = new UserController(_repository, _mapper);
+
+            _repository = new UserRepository(Context);
+            _controller = new UserController(_repository, Mapper);
         }
 
         [Fact]
         public void GetUserList()
         {
             // arrange
-            _context.Users.Add(new User { Name = "Jung" });
-            _context.Users.Add(new User { Name = "Kim" });
-            _context.SaveChanges();
+            Context.Users.Add(new CUPrototype.Models.User { Name = "Jung" });
+            Context.Users.Add(new CUPrototype.Models.User { Name = "Kim" });
+            Context.SaveChanges();
 
             // act
             var response = _controller.GetUserList();
@@ -62,9 +56,9 @@ namespace TestCUPrototype.TestController
         public void GetUser()
         {
             // arrange
-            var getUser = new User { Name = "Jung" };
-            _context.Users.Add(getUser);
-            _context.SaveChanges();
+            var getUser = new CUPrototype.Models.User { Name = "Jung" };
+            Context.Users.Add(getUser);
+            Context.SaveChanges();
 
             // act
             var response = _controller.GetUser(1);
@@ -83,7 +77,7 @@ namespace TestCUPrototype.TestController
 
             // assert
             Assert.IsType<NotFoundResult>(response.Result);
-            
+
         }
 
         [Fact]
@@ -97,7 +91,7 @@ namespace TestCUPrototype.TestController
 
             // assert
             var okResult = Assert.IsType<CreatedAtRouteResult>(response.Result);
-            var user = Assert.IsType<UserDto>(_mapper.Map<UserDto>(okResult.Value));
+            var user = Assert.IsType<UserDto>(Mapper.Map<UserDto>(okResult.Value));
             Assert.Equal(insertUser.Name, user.Name);
 
         }
@@ -106,9 +100,9 @@ namespace TestCUPrototype.TestController
         public void PutUser()
         {
             // arrange
-            var sourceUser = new User { Name = "Jung" };
-            _context.Users.Add(sourceUser);
-            _context.SaveChanges();
+            var sourceUser = new CUPrototype.Models.User { Name = "Jung" };
+            Context.Users.Add(sourceUser);
+            Context.SaveChanges();
             var putUser = new UserDto { Name = "Kim" };
 
             // act
@@ -122,20 +116,15 @@ namespace TestCUPrototype.TestController
         public void DeleteUser()
         {
             // arrange
-            var sourceUser = new User { Name = "Jung" };
-            _context.Users.Add(sourceUser);
-            _context.SaveChanges();
+            var sourceUser = new CUPrototype.Models.User { Name = "Jung" };
+            Context.Users.Add(sourceUser);
+            Context.SaveChanges();
 
             // act
             var response = _controller.DeleteUser(sourceUser.Id);
 
             // assert
             Assert.IsType<NoContentResult>(response);
-        }
-
-        public void Dispose()
-        {
-            _context.Database.EnsureDeleted();
         }
     }
 }
