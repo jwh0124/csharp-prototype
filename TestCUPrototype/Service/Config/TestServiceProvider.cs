@@ -3,8 +3,6 @@ using CUPrototype.Config;
 using CUPrototype.Profiles;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TestCUPrototype.Config
 {

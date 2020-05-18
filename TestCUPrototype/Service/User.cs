@@ -18,7 +18,6 @@ namespace TestCUPrototype.Service
 
         public User()
         {
-
             _repository = new UserRepository(Context);
             _controller = new UserController(_repository, Mapper);
         }
