@@ -1,35 +1,58 @@
-﻿using System;
+﻿using Microsoft.Extensions.Caching.Memory;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace FaceAlgorismTestConsole
 {
+
     class Program
     {
-        [DllImport("test.dll")]
-        extern public static double Add(double a, double b);
+        [DllImport("CUFaceRecognizer.dll", CallingConvention =CallingConvention.Cdecl)]
+        public static extern IntPtr CreateCURecognizer();
 
-        //[DllImport("CUFaceRecognizer.dll", CharSet =CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        //public static extern bool Init(CUFaceRecognizer pRecognizer, StringBuilder configfile, bool initAsync);
+        [DllImport("CUFaceRecognizer.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern bool Init(IntPtr pRecognizer, StringBuilder config, bool initAsync);
 
-        // 얼굴 추출
-        //[DllImport("CUFaceRecognizer.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        //public static extern ResultCode FaceExtraction(CUFaceRecognizer pRecognizer, StringBuilder jpgData, long imageLen,ref ResultValue retValue, bool isCropped = false);
+        //Recognizer 삭제
+        [DllImport("CUFaceRecognizer.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DisposeCURecognizer(IntPtr pRecognizer);
 
-        // 얼굴 매치(비교)
-        //[DllImport("CUFaceRecognizer.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        //public static extern float MatchFeature(CUFaceRecognizer pRecognizer, StringBuilder srcFeature, long srcFeatureLen, StringBuilder destFeature, long destFeatureLen);
-
-        // Recognizer 삭제
-        //[DllImport("CUFaceRecognizer.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-        //public static extern void DisposeCURecognizer(CUFaceRecognizer pRecognizer);
-
-
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine(Add(1, 2));
-            Console.WriteLine(Add(3, 4));
+            IMemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
+            FaceAlgorism algorism = new FaceAlgorism(_cache);
+            FaceEmbeddingCache faceEmbedding = new FaceEmbeddingCache(_cache, algorism);
 
+            IntPtr pRecognizer = CreateCURecognizer();
+
+            StringBuilder config_file = new StringBuilder();
+            config_file.Append("E:\\CUBOX\\Private\\CSharp\\FaceAlgorismTestConsole\\bin\\Debug\\netcoreapp3.1\\cuface_config.json");
+
+            Init(pRecognizer, config_file, false);
+
+            faceEmbedding.EmbeddingCache(pRecognizer);
+
+            Console.WriteLine("-------------------- Matching Test -----------------------");
+            Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            string testImagePath = "E:\\CUBOX\\Private\\CSharp\\FaceAlgorismTestConsole\\bin\\Debug\\netcoreapp3.1\\test\\jung5.jpg";
+            byte[] imageBytes = File.ReadAllBytes(testImagePath);
+
+            byte[] srcEmbed = algorism.FaceExtract(pRecognizer, imageBytes);
+
+            List<FaceCache> faceCaches = new List<FaceCache>();
+            _cache.TryGetValue("Face", out faceCaches);
+            foreach (var item in faceCaches)
+            {
+                float score = algorism.FaceMatch(pRecognizer, srcEmbed, item.Value);
+                Console.WriteLine("Score : " + score + " User No : " + item.No);
+            }
+            Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            Console.WriteLine("-------------------- Matching Test -----------------------");
+
+            DisposeCURecognizer(pRecognizer);
         }
     }
 }

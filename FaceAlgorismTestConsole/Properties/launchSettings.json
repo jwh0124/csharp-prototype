@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FaceAlgorismTestConsole": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
