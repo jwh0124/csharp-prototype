@@ -7,7 +7,7 @@ namespace ImageSave
     {
         static void Main(string[] args)
         {
-            string path = "E:\\CUBOX\\DOC\\업무\\MVC Pattern.png";
+            string path = "E:\\CUBOX\\Etc\\whjung.jpg";
             string writePath = "C:\\test";
 
             ImageUtil util = new ImageUtil();
