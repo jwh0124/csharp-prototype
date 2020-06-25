@@ -2,8 +2,11 @@
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Receiving;
+using MQTTnet.Client.Subscribing;
 using MQTTnet.Protocol;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MQTTSubcriberPrototype
@@ -23,28 +26,16 @@ namespace MQTTSubcriberPrototype
 
             await client.ConnectAsync(options);
 
-            await test();
-        }
-
-        public static async Task test()
-        {
-            client.UseApplicationMessageReceivedHandler(new MqttApplicationMessageReceivedHandlerDelegate(e => MqttClient_ApplicationMessageReceived(e)));
-            await client.SubscribeAsync("api/test", MqttQualityOfServiceLevel.AtLeastOnce);
+            await client.SubscribeAsync("auth/card/response", MqttQualityOfServiceLevel.AtLeastOnce);
+            client.UseApplicationMessageReceivedHandler(e =>
+            {
+                Console.WriteLine(e.ApplicationMessage.ConvertPayloadToString());
+            });
 
             while (true)
             {
-                string readKey = Console.ReadLine();
-                if (readKey.StartsWith("q")){
-                    return;
-                }
-            }
-        }
 
-        private static void MqttClient_ApplicationMessageReceived(MqttApplicationMessageReceivedEventArgs e)
-        {
-            Console.Write(">>> Receive Message : ");
-            Console.WriteLine(e.ApplicationMessage.ConvertPayloadToString());
-            client.PublishAsync("api/test/response", e.ApplicationMessage.ConvertPayloadToString());
+            }
         }
     }
 }

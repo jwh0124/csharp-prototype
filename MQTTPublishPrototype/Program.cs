@@ -24,7 +24,7 @@ namespace MQTTPublishPrototype
 
             var options = new MqttClientOptionsBuilder()
                 .WithClientId(Guid.NewGuid().ToString())
-                .WithTcpServer("localhost",1886)
+                .WithTcpServer("localhost", 1886)
                 .Build();
 
             await client.ConnectAsync(options);
@@ -41,26 +41,28 @@ namespace MQTTPublishPrototype
                     authResult = true,
                     count = count
                 };
+                if (count%2 == 0)
+                {
+                    result.authResult = false;
+                }
+                else
+                {
+                    result.authResult = true;
+                }
+                
                 var message = new MqttApplicationMessageBuilder()
-                    .WithTopic("api/test")
-                    .WithPayload(JsonSerializer.Serialize(result))
+                    .WithTopic("auth/card/request")
+                    .WithPayload("62A70859")
                     .WithExactlyOnceQoS()
                     .Build();
-                
+
                 Console.WriteLine("###Send Count : "+ count + " >>> Send Message : " + message.ConvertPayloadToString());
 
                 await client.PublishAsync(message);
 
-                client.UseApplicationMessageReceivedHandler(new MqttApplicationMessageReceivedHandlerDelegate(e => MqttClient_ApplicationMessageReceived(e)));
-                await client.SubscribeAsync("api/test/response", MqttQualityOfServiceLevel.AtLeastOnce);
 
                 Thread.Sleep(500);
             }
-        }
-        private static void MqttClient_ApplicationMessageReceived(MqttApplicationMessageReceivedEventArgs e)
-        {
-            Console.Write(">>> Receive Message : ");
-            Console.WriteLine(e.ApplicationMessage.ConvertPayloadToString());
         }
     }
 }
