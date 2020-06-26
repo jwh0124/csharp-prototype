@@ -25,6 +25,7 @@ namespace MQTTPublishPrototype
             var options = new MqttClientOptionsBuilder()
                 .WithClientId(Guid.NewGuid().ToString())
                 .WithTcpServer("localhost", 1886)
+                .WithCredentials("cubox", "cubox0000")
                 .Build();
 
             await client.ConnectAsync(options);
