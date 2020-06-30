@@ -17,6 +17,10 @@ namespace FaceAlgorismSOPrototype
         [DllImport(cuLib, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern bool Init(IntPtr pRecognizer, StringBuilder config, bool initAsync);
 
+
+        [DllImport(cuLib, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern ResultCode FaceDetection(IntPtr pRecognizer, byte[] frame, int imageLen, IntPtr retValue);
+
         [DllImport(cuLib, CallingConvention = CallingConvention.Cdecl, CharSet =CharSet.Ansi)]
         public static extern ResultCode FaceExtraction(IntPtr pRecognizer, byte[] jpgData, int imageLen, IntPtr retValue, byte[] embedding, int size);
 
@@ -81,18 +85,20 @@ namespace FaceAlgorismSOPrototype
                 byte[] srcFeature = Convert.FromBase64String(embeddingImage);
                 byte[] desFeature = Convert.FromBase64String(embeddingImage);
 
-                ResultCode resultCode = FaceExtraction(pRecognizer, imageByte, imageByte.Length, resultPtr, embedding, embedding_len);
+                /*ResultCode resultCode = FaceExtraction(pRecognizer, imageByte, imageByte.Length, resultPtr, embedding, embedding_len);*/
+
+                ResultCode resultCode = FaceDetection(pRecognizer, imageByte, imageByte.Length, resultPtr);
 
                 Console.WriteLine(resultCode);
 
-                CSResultValue resultValue = new CSResultValue();
+                /*CSResultValue resultValue = new CSResultValue();
                 resultValue = (CSResultValue)Marshal.PtrToStructure(resultPtr, typeof(CSResultValue));
                     
                 Marshal.FreeHGlobal(resultPtr);
 
                 float score = MatchFeature(pRecognizer, srcFeature, srcFeature.Length, desFeature, desFeature.Length);
 
-                Console.WriteLine(score);
+                Console.WriteLine(score);*/
             }
             catch(Exception e)
             {

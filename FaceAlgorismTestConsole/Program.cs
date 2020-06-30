@@ -33,16 +33,21 @@ namespace FaceAlgorismTestConsole
 
             Init(pRecognizer, config_file, false);
 
-            faceEmbedding.EmbeddingCache(pRecognizer);
+            
+
+            //faceEmbedding.EmbeddingCache(pRecognizer);
 
             Console.WriteLine("-------------------- Matching Test -----------------------");
             Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            string testImagePath = "E:\\CUBOX\\Private\\CSharp\\FaceAlgorismTestConsole\\bin\\Debug\\netcoreapp3.1\\test\\jung5.jpg";
+            string testImagePath = "E:\\CUBOX\\Private\\CSharp\\FaceAlgorismTestConsole\\bin\\Debug\\netcoreapp3.1\\test\\jung1.jpg";
             byte[] imageBytes = File.ReadAllBytes(testImagePath);
+
+            algorism.FaceDetectionTest(pRecognizer, imageBytes);
+
 
             byte[] srcEmbed = algorism.FaceExtract(pRecognizer, imageBytes);
 
-            List<FaceCache> faceCaches = new List<FaceCache>();
+            /*List<FaceCache> faceCaches = new List<FaceCache>();
             _cache.TryGetValue("Face", out faceCaches);
             foreach (var item in faceCaches)
             {
@@ -50,7 +55,7 @@ namespace FaceAlgorismTestConsole
                 Console.WriteLine("Score : " + score + " User No : " + item.No);
             }
             Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            Console.WriteLine("-------------------- Matching Test -----------------------");
+            Console.WriteLine("-------------------- Matching Test -----------------------");*/
 
             DisposeCURecognizer(pRecognizer);
         }

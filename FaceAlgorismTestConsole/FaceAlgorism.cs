@@ -15,13 +15,42 @@ namespace FaceAlgorismTestConsole
             _cache = cache;
         }
 
+        //얼굴 감지
+        [DllImport("CUFaceRecognizer.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern ResultCode FaceDetection(IntPtr pRecognizer, byte[] frame, int imageLen, IntPtr retValue);
+
         //얼굴 추출
-        [DllImport("CUFaceRecognizer.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("CUFaceRecognizer.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern ResultCode FaceExtraction(IntPtr pRecognizer, byte[] jpgData, long imageLen, CSResultVal retValue, byte[] embedding, int size);
 
         //얼굴 매치(비교)
         [DllImport("CUFaceRecognizer.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern float MatchFeature(IntPtr pRecognizer, byte[] srcFeature, long srcFeatureLen, byte[] destFeature, long destFeatureLen);
+
+        public CSResultVal FaceDetectionTest(IntPtr pRecognizer, byte[] imageBytes)
+        {
+            CSResultVal resultVal = new CSResultVal();
+
+            int resultSize = Marshal.SizeOf(typeof(CSResultVal));
+            IntPtr resultPtr = Marshal.AllocHGlobal(resultSize);
+
+            Marshal.StructureToPtr(resultVal, resultPtr, false);
+
+            ResultCode detection = FaceDetection(pRecognizer, imageBytes, imageBytes.Length, resultPtr);
+            Console.WriteLine(detection);
+
+            CSResultVal result = new CSResultVal();
+            result = (CSResultVal)Marshal.PtrToStructure(resultPtr, typeof(CSResultVal));
+
+            // Result Confidence 비교
+            // Result Rect 비교
+            // Return true, false ?
+
+            Marshal.FreeHGlobal(resultPtr);
+
+            return result;
+        }
+
 
         public byte[] FaceExtract(IntPtr pRecognizer, byte[] imageBytes)
         {
@@ -42,6 +71,8 @@ namespace FaceAlgorismTestConsole
                 // 메모리에 등록
                 _cache.Set("Face", faceCaches);                
             }*/
+
+            Console.WriteLine(embedding);
             
             return embedding;
         }
