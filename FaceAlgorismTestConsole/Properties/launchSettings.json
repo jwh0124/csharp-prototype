@@ -2,7 +2,7 @@
   "profiles": {
     "FaceAlgorismTestConsole": {
       "commandName": "Project",
-      "nativeDebugging": true
+      "nativeDebugging": false
     }
   }
 }

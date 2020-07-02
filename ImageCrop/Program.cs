@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 
 namespace ImageCrop
@@ -15,8 +16,11 @@ namespace ImageCrop
 
             byte[] croppedImage = new byte[cropWidth * cropHeight];
 
-            
 
+            Bitmap bitmap = new Bitmap(testImagePath);
+            Rectangle rectangle = new Rectangle(0, 0, 100, 100);
+            Bitmap a = bitmap.Clone(rectangle, bitmap.PixelFormat);
+            a.Save("E:\\CUBOX\\Private\\CSharp\\FaceAlgorismTestConsole\\bin\\Debug\\netcoreapp3.1\\test\\jung10.jpg");
         }
     }
 }

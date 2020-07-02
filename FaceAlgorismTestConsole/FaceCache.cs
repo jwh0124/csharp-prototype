@@ -8,5 +8,7 @@ namespace FaceAlgorismTestConsole
     {
         public int No { get; set; }
         public byte[] Value { get; set; }
+
+        public string Url { get; set; }
     }
 }

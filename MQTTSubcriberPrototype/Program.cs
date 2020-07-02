@@ -46,7 +46,7 @@ namespace MQTTSubcriberPrototype
             client.UseConnectedHandler(async e =>
             {
                 Console.WriteLine("Connection Success");
-                await client.SubscribeAsync("auth/card");
+                await client.SubscribeAsync("auth/card/request");
             });
 
             client.UseApplicationMessageReceivedHandler(e =>

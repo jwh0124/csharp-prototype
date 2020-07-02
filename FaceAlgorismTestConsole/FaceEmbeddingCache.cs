@@ -27,9 +27,9 @@ namespace FaceAlgorismTestConsole
             {
                 byte[] imageBytes = File.ReadAllBytes(item.value);
 
-                byte[] srcEmbed = faceAlgorism.FaceExtract(pRecognizer, imageBytes);
+                byte[] srcEmbed = faceAlgorism.FaceExtract(pRecognizer, imageBytes,false);
                 
-                faceCaches.Add(new FaceCache { No =item.i, Value = srcEmbed });
+                faceCaches.Add(new FaceCache { No =item.i, Value = srcEmbed, Url = item.value });
             }
             _cache.Set("Face", faceCaches);
         }
