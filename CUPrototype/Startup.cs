@@ -27,7 +27,7 @@ namespace CUPrototype
         public void ConfigureServices(IServiceCollection services)
         {
             // DBContext Config
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Singleton);
             
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
@@ -45,6 +45,8 @@ namespace CUPrototype
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMvc();
+
+            DbInitializer.Seed(app);
 
             app.UseSwagger();
 
