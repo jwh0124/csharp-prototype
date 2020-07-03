@@ -44,20 +44,20 @@ namespace FaceAlgorismTestConsole
 
             CSResultVal result = new CSResultVal();
             result = (CSResultVal)Marshal.PtrToStructure(resultPtr, typeof(CSResultVal));
-            byte[] resultImage = new byte[result.l * result.t * 3];
+            var width = result.r - result.l;
+            var height = result.b - result.t;
+
             if (result.confidence > 0.6 && result.l > 100)
             {
                 // Result Confidence 비교
                 // Result Rect 비교
 
+
+
                 MemoryStream ms = new MemoryStream(imageBytes);
                 Image sourceImage = Image.FromStream(ms);
 
-                var width = result.r - result.l;
-                var height = result.b - result.t;
-
                 Rectangle rectangle = new Rectangle(result.l, result.t, width, height);
-                
 
                 using (Bitmap targetImage = new Bitmap(width, height,PixelFormat.Format24bppRgb))
                 {
@@ -72,23 +72,30 @@ namespace FaceAlgorismTestConsole
                         ImageCodecInfo myImageCodecInfo;
                         myImageCodecInfo = GetEncoderInfo("image/jpeg");
                         System.Drawing.Imaging.Encoder myEncoder;
-                        EncoderParameter myEncoderParameter;
+                        EncoderParameter myEncoderParameter; 
                         EncoderParameters myEncoderParameters;
 
                         myEncoder = System.Drawing.Imaging.Encoder.Quality;
 
                         myEncoderParameters = new EncoderParameters(1);
 
-                        myEncoderParameter = new EncoderParameter(myEncoder, 100L);
+                        myEncoderParameter = new EncoderParameter(myEncoder, 50L);
                         myEncoderParameters.Param[0] = myEncoderParameter;
 
-                        graphics.DrawImage(sourceImage, 0,0 , rectangle, GraphicsUnit.Pixel);
+
+                        graphics.DrawImage(sourceImage, 0, 0, rectangle, GraphicsUnit.Pixel);
+                        MemoryStream targetMS = new MemoryStream();
+                        targetImage.Save(targetMS, myImageCodecInfo, myEncoderParameters);
+                        targetImage.Save("E:\\CUBOX\\Private\\CSharp\\FaceAlgorismTestConsole\\bin\\Debug\\netcoreapp3.1\\test\\cropped.jpg", myImageCodecInfo, myEncoderParameters);
+                        byte[] resultImage = targetMS.ToArray();
+                        return resultImage;
+                        /*graphics.DrawImage(sourceImage, 0, 0, rectangle, GraphicsUnit.Pixel);
                         targetImage.Save("E:\\CUBOX\\Private\\CSharp\\FaceAlgorismTestConsole\\bin\\Debug\\netcoreapp3.1\\test\\cropped.jpg", myImageCodecInfo, myEncoderParameters);
                         Image thumbnail = targetImage.GetThumbnailImage(100, 100, null, IntPtr.Zero);
                         thumbnail.Save("E:\\CUBOX\\Private\\CSharp\\FaceAlgorismTestConsole\\bin\\Debug\\netcoreapp3.1\\test\\resize.jpg", myImageCodecInfo, myEncoderParameters);
                         MemoryStream ms1 = new MemoryStream(resultImage, 0, resultImage.Length);
-                        thumbnail.Save(ms1, ImageFormat.Jpeg);
-                        resultImage = ms1.ToArray();
+                        thumbnail.Save(ms1, ImageFormat.Bmp);
+                        resultImage = ms1.ToArray();*/
                     }
                 }
             }
@@ -96,7 +103,7 @@ namespace FaceAlgorismTestConsole
 
             Marshal.FreeHGlobal(resultPtr);
 
-            return resultImage;
+            return null;
         }
 
 
