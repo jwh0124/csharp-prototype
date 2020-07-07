@@ -45,13 +45,16 @@ namespace MQTTSubcriberPrototype
 
             client.UseConnectedHandler(async e =>
             {
-                Console.WriteLine("Connection Success");
                 await client.SubscribeAsync("auth/face/request");
+                await client.SubscribeAsync("auth/face/response");
+                await client.SubscribeAsync("auth/card/request");
+                await client.SubscribeAsync("auth/card/response");
+                await client.SubscribeAsync("cam/image/requset");
             });
 
             client.UseApplicationMessageReceivedHandler(e =>
             {
-                Console.WriteLine(e.ApplicationMessage.ConvertPayloadToString());
+                Console.WriteLine(e.ApplicationMessage.Topic);
             });
 
             try
