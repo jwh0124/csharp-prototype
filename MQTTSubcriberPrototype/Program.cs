@@ -49,12 +49,11 @@ namespace MQTTSubcriberPrototype
                 await client.SubscribeAsync("auth/face/response");
                 await client.SubscribeAsync("auth/card/request");
                 await client.SubscribeAsync("auth/card/response");
-                await client.SubscribeAsync("cam/image/requset");
             });
 
             client.UseApplicationMessageReceivedHandler(e =>
             {
-                Console.WriteLine(e.ApplicationMessage.Topic);
+                Console.WriteLine(">>>>>" + e.ApplicationMessage.Topic + "Sub Time " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
             });
 
             try
