@@ -30,39 +30,23 @@ namespace MQTTPublishPrototype
 
             await client.ConnectAsync(options);
 
-            int count = 0;
+            int value = 1;
 
             while (true)
             {
-                count++;
-                var result = new Result
-                {
-                    UserNo = "12345",
-                    UserName = "jung",
-                    authResult = true,
-                    count = count
-                };
-                if (count%2 == 0)
-                {
-                    result.authResult = false;
-                }
-                else
-                {
-                    result.authResult = true;
-                }
-                
+                value = value == 0 ? 1 : 0;
+
                 var message = new MqttApplicationMessageBuilder()
-                    .WithTopic("auth/card/request")
-                    .WithPayload("62A70859")
+                    .WithTopic("door/open")
+                    .WithPayload(string.Format("{0}",value))
                     .WithExactlyOnceQoS()
                     .Build();
 
-                Console.WriteLine("###Send Count : "+ count + " >>> Send Message : " + message.ConvertPayloadToString());
-
                 await client.PublishAsync(message);
 
+                Console.WriteLine(">>> Topic : " + message.Topic + " Payload Value: " + message.ConvertPayloadToString());
 
-                Thread.Sleep(500);
+                Thread.Sleep(3000);
             }
         }
     }
