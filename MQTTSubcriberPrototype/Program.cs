@@ -49,7 +49,7 @@ namespace MQTTSubcriberPrototype
                 await client.SubscribeAsync("auth/face/response");
                 await client.SubscribeAsync("auth/card/request");
                 await client.SubscribeAsync("auth/card/response");
-                await client.SubscribeAsync("door/open");
+                await client.SubscribeAsync("patch/request");
             });
 
             client.UseApplicationMessageReceivedHandler(e =>
