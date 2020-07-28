@@ -46,7 +46,7 @@ namespace MQTTPublishPrototype
 
                 Console.WriteLine(">>> Topic : " + message.Topic + " Payload Value: " + message.ConvertPayloadToString());
 
-                Thread.Sleep(3000);
+                Thread.Sleep(300);
             }
         }
     }
