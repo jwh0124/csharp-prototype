@@ -1,13 +1,5 @@
 ﻿using K_Face_XT_Test.Util;
-using MQTTnet.Client;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace K_Face_XT_Test
@@ -21,7 +13,6 @@ namespace K_Face_XT_Test
             MqttUtil = new MqttUtil();
             InitializeComponent();
         }
-
 
         private void Btn_Connect_Click(object sender, EventArgs e)
         {
@@ -40,7 +31,7 @@ namespace K_Face_XT_Test
                 }
                 catch
                 {
-                    MessageBox.Show("Broker가 작동하지 않습니다.");
+                    MessageBox.Show("Broker 실행 에러.");
                 }
             }
             else
@@ -52,7 +43,22 @@ namespace K_Face_XT_Test
 
         private void Btn_Pub_Click(object sender, EventArgs e)
         {
-            MqttUtil.Mqtt_Pub();
+            MqttUtil.Mqtt_Pub(Txt_Topic.Text, Txt_Payload.Text);
+        }
+
+        private void Btn_sub_add_topic_Click(object sender, EventArgs e)
+        {
+            List_sub.Items.Add(Txt_topic_sub.Text);
+        }
+
+        private void Btn_sub_clear_Click(object sender, EventArgs e)
+        {
+            List_sub.Items.Clear();
+        }
+
+        private void Btn_subscribe_Click(object sender, EventArgs e)
+        {
+            MqttUtil.Mqtt_Sub(List_sub.Items);
         }
     }
 }

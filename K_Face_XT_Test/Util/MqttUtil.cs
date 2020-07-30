@@ -24,17 +24,25 @@ namespace K_Face_XT_Test.Util
             .WithCredentials("cubox", "cubox0000")
             .Build();
 
-            _client.UseApplicationMessageReceivedHandler(e =>
-            {
-                MessageBox.Show(e.ApplicationMessage.Topic);
-            });
-
             return _client.ConnectAsync(options).Result.ResultCode == MqttClientConnectResultCode.Success;
         }
 
-        public void Mqtt_Pub()
+        public void Mqtt_Pub(string Topic, string Message)
         {
-            _client.PublishAsync("test", "1234");
+            _client.PublishAsync(Topic, Message);
+        }
+
+        public async Task Mqtt_Sub(List<string> topicList)
+        {
+            foreach (var topic in topicList)
+            {
+                await _client.SubscribeAsync(topic);
+            }
+
+            _client.UseApplicationMessageReceivedHandler(e =>
+            {
+                
+            });
         }
     }
 }

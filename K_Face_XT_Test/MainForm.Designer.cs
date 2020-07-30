@@ -30,17 +30,23 @@
         {
             this.tab_main = new System.Windows.Forms.TabControl();
             this.tab_pub = new System.Windows.Forms.TabPage();
+            this.Btn_Pub = new System.Windows.Forms.Button();
+            this.Txt_Payload = new System.Windows.Forms.TextBox();
+            this.Lbl_Payload = new System.Windows.Forms.Label();
+            this.Txt_Topic = new System.Windows.Forms.TextBox();
+            this.Lbl_Topic = new System.Windows.Forms.Label();
             this.tab_sub = new System.Windows.Forms.TabPage();
+            this.Txt_sub = new System.Windows.Forms.TextBox();
             this.tab_connection = new System.Windows.Forms.TabPage();
             this.Btn_Connect = new System.Windows.Forms.Button();
             this.Txt_IP = new System.Windows.Forms.TextBox();
             this.Lbl_ip = new System.Windows.Forms.Label();
-            this.Txt_Topic = new System.Windows.Forms.TextBox();
-            this.Lbl_Topic = new System.Windows.Forms.Label();
-            this.Txt_Payload = new System.Windows.Forms.TextBox();
-            this.Lbl_Payload = new System.Windows.Forms.Label();
-            this.Btn_Pub = new System.Windows.Forms.Button();
-            this.Txt_sub = new System.Windows.Forms.TextBox();
+            this.Txt_topic_sub = new System.Windows.Forms.TextBox();
+            this.Lbl_sub_topic = new System.Windows.Forms.Label();
+            this.Btn_sub_add_topic = new System.Windows.Forms.Button();
+            this.List_sub = new System.Windows.Forms.ListBox();
+            this.Btn_subscribe = new System.Windows.Forms.Button();
+            this.Btn_sub_clear = new System.Windows.Forms.Button();
             this.tab_main.SuspendLayout();
             this.tab_pub.SuspendLayout();
             this.tab_sub.SuspendLayout();
@@ -73,8 +79,57 @@
             this.tab_pub.Text = "Publish";
             this.tab_pub.UseVisualStyleBackColor = true;
             // 
+            // Btn_Pub
+            // 
+            this.Btn_Pub.Location = new System.Drawing.Point(249, 177);
+            this.Btn_Pub.Name = "Btn_Pub";
+            this.Btn_Pub.Size = new System.Drawing.Size(75, 23);
+            this.Btn_Pub.TabIndex = 9;
+            this.Btn_Pub.Text = "Publish";
+            this.Btn_Pub.UseVisualStyleBackColor = true;
+            this.Btn_Pub.Click += new System.EventHandler(this.Btn_Pub_Click);
+            // 
+            // Txt_Payload
+            // 
+            this.Txt_Payload.Location = new System.Drawing.Point(80, 60);
+            this.Txt_Payload.Multiline = true;
+            this.Txt_Payload.Name = "Txt_Payload";
+            this.Txt_Payload.Size = new System.Drawing.Size(244, 100);
+            this.Txt_Payload.TabIndex = 8;
+            // 
+            // Lbl_Payload
+            // 
+            this.Lbl_Payload.AutoSize = true;
+            this.Lbl_Payload.Location = new System.Drawing.Point(24, 65);
+            this.Lbl_Payload.Name = "Lbl_Payload";
+            this.Lbl_Payload.Size = new System.Drawing.Size(51, 12);
+            this.Lbl_Payload.TabIndex = 7;
+            this.Lbl_Payload.Text = "Payload";
+            // 
+            // Txt_Topic
+            // 
+            this.Txt_Topic.Location = new System.Drawing.Point(80, 21);
+            this.Txt_Topic.Name = "Txt_Topic";
+            this.Txt_Topic.Size = new System.Drawing.Size(100, 21);
+            this.Txt_Topic.TabIndex = 6;
+            // 
+            // Lbl_Topic
+            // 
+            this.Lbl_Topic.AutoSize = true;
+            this.Lbl_Topic.Location = new System.Drawing.Point(24, 26);
+            this.Lbl_Topic.Name = "Lbl_Topic";
+            this.Lbl_Topic.Size = new System.Drawing.Size(37, 12);
+            this.Lbl_Topic.TabIndex = 5;
+            this.Lbl_Topic.Text = "Topic";
+            // 
             // tab_sub
             // 
+            this.tab_sub.Controls.Add(this.Btn_sub_clear);
+            this.tab_sub.Controls.Add(this.Btn_subscribe);
+            this.tab_sub.Controls.Add(this.List_sub);
+            this.tab_sub.Controls.Add(this.Btn_sub_add_topic);
+            this.tab_sub.Controls.Add(this.Txt_topic_sub);
+            this.tab_sub.Controls.Add(this.Lbl_sub_topic);
             this.tab_sub.Controls.Add(this.Txt_sub);
             this.tab_sub.Location = new System.Drawing.Point(4, 22);
             this.tab_sub.Name = "tab_sub";
@@ -83,6 +138,14 @@
             this.tab_sub.TabIndex = 1;
             this.tab_sub.Text = "Subcribe";
             this.tab_sub.UseVisualStyleBackColor = true;
+            // 
+            // Txt_sub
+            // 
+            this.Txt_sub.Location = new System.Drawing.Point(315, 5);
+            this.Txt_sub.Multiline = true;
+            this.Txt_sub.Name = "Txt_sub";
+            this.Txt_sub.Size = new System.Drawing.Size(447, 343);
+            this.Txt_sub.TabIndex = 10;
             // 
             // tab_connection
             // 
@@ -124,56 +187,60 @@
             this.Lbl_ip.TabIndex = 3;
             this.Lbl_ip.Text = "IP";
             // 
-            // Txt_Topic
+            // Txt_topic_sub
             // 
-            this.Txt_Topic.Location = new System.Drawing.Point(80, 21);
-            this.Txt_Topic.Name = "Txt_Topic";
-            this.Txt_Topic.Size = new System.Drawing.Size(100, 21);
-            this.Txt_Topic.TabIndex = 6;
+            this.Txt_topic_sub.Location = new System.Drawing.Point(62, 15);
+            this.Txt_topic_sub.Name = "Txt_topic_sub";
+            this.Txt_topic_sub.Size = new System.Drawing.Size(155, 21);
+            this.Txt_topic_sub.TabIndex = 13;
             // 
-            // Lbl_Topic
+            // Lbl_sub_topic
             // 
-            this.Lbl_Topic.AutoSize = true;
-            this.Lbl_Topic.Location = new System.Drawing.Point(24, 26);
-            this.Lbl_Topic.Name = "Lbl_Topic";
-            this.Lbl_Topic.Size = new System.Drawing.Size(37, 12);
-            this.Lbl_Topic.TabIndex = 5;
-            this.Lbl_Topic.Text = "Topic";
+            this.Lbl_sub_topic.AutoSize = true;
+            this.Lbl_sub_topic.Location = new System.Drawing.Point(10, 20);
+            this.Lbl_sub_topic.Name = "Lbl_sub_topic";
+            this.Lbl_sub_topic.Size = new System.Drawing.Size(37, 12);
+            this.Lbl_sub_topic.TabIndex = 12;
+            this.Lbl_sub_topic.Text = "Topic";
             // 
-            // Txt_Payload
+            // Btn_sub_add_topic
             // 
-            this.Txt_Payload.Location = new System.Drawing.Point(80, 60);
-            this.Txt_Payload.Multiline = true;
-            this.Txt_Payload.Name = "Txt_Payload";
-            this.Txt_Payload.Size = new System.Drawing.Size(244, 100);
-            this.Txt_Payload.TabIndex = 8;
+            this.Btn_sub_add_topic.Location = new System.Drawing.Point(223, 15);
+            this.Btn_sub_add_topic.Name = "Btn_sub_add_topic";
+            this.Btn_sub_add_topic.Size = new System.Drawing.Size(75, 23);
+            this.Btn_sub_add_topic.TabIndex = 14;
+            this.Btn_sub_add_topic.Text = "Add";
+            this.Btn_sub_add_topic.UseVisualStyleBackColor = true;
+            this.Btn_sub_add_topic.Click += new System.EventHandler(this.Btn_sub_add_topic_Click);
             // 
-            // Lbl_Payload
+            // List_sub
             // 
-            this.Lbl_Payload.AutoSize = true;
-            this.Lbl_Payload.Location = new System.Drawing.Point(24, 65);
-            this.Lbl_Payload.Name = "Lbl_Payload";
-            this.Lbl_Payload.Size = new System.Drawing.Size(51, 12);
-            this.Lbl_Payload.TabIndex = 7;
-            this.Lbl_Payload.Text = "Payload";
+            this.List_sub.FormattingEnabled = true;
+            this.List_sub.ItemHeight = 12;
+            this.List_sub.Location = new System.Drawing.Point(12, 80);
+            this.List_sub.Name = "List_sub";
+            this.List_sub.Size = new System.Drawing.Size(286, 268);
+            this.List_sub.TabIndex = 15;
             // 
-            // Btn_Pub
+            // Btn_subscribe
             // 
-            this.Btn_Pub.Location = new System.Drawing.Point(249, 177);
-            this.Btn_Pub.Name = "Btn_Pub";
-            this.Btn_Pub.Size = new System.Drawing.Size(75, 23);
-            this.Btn_Pub.TabIndex = 9;
-            this.Btn_Pub.Text = "Publish";
-            this.Btn_Pub.UseVisualStyleBackColor = true;
-            this.Btn_Pub.Click += new System.EventHandler(this.Btn_Pub_Click);
+            this.Btn_subscribe.Location = new System.Drawing.Point(93, 44);
+            this.Btn_subscribe.Name = "Btn_subscribe";
+            this.Btn_subscribe.Size = new System.Drawing.Size(75, 23);
+            this.Btn_subscribe.TabIndex = 16;
+            this.Btn_subscribe.Text = "Subscribe";
+            this.Btn_subscribe.UseVisualStyleBackColor = true;
+            this.Btn_subscribe.Click += new System.EventHandler(this.Btn_subscribe_Click);
             // 
-            // Txt_sub
+            // Btn_sub_clear
             // 
-            this.Txt_sub.Location = new System.Drawing.Point(6, 5);
-            this.Txt_sub.Multiline = true;
-            this.Txt_sub.Name = "Txt_sub";
-            this.Txt_sub.Size = new System.Drawing.Size(756, 343);
-            this.Txt_sub.TabIndex = 10;
+            this.Btn_sub_clear.Location = new System.Drawing.Point(12, 44);
+            this.Btn_sub_clear.Name = "Btn_sub_clear";
+            this.Btn_sub_clear.Size = new System.Drawing.Size(75, 23);
+            this.Btn_sub_clear.TabIndex = 17;
+            this.Btn_sub_clear.Text = "Clear";
+            this.Btn_sub_clear.UseVisualStyleBackColor = true;
+            this.Btn_sub_clear.Click += new System.EventHandler(this.Btn_sub_clear_Click);
             // 
             // MainForm
             // 
@@ -209,6 +276,12 @@
         private System.Windows.Forms.Label Lbl_Topic;
         private System.Windows.Forms.Button Btn_Pub;
         private System.Windows.Forms.TextBox Txt_sub;
+        private System.Windows.Forms.ListBox List_sub;
+        private System.Windows.Forms.Button Btn_sub_add_topic;
+        private System.Windows.Forms.TextBox Txt_topic_sub;
+        private System.Windows.Forms.Label Lbl_sub_topic;
+        private System.Windows.Forms.Button Btn_sub_clear;
+        private System.Windows.Forms.Button Btn_subscribe;
     }
 }
 
