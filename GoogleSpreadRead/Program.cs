@@ -4,14 +4,17 @@ using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Util.Store;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic.CompilerServices;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
+using System.Numerics;
 using System.Threading;
 
 namespace GoogleSpreadRead
@@ -57,16 +60,18 @@ namespace GoogleSpreadRead
             // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
             ValueRange response = request.Execute();
             IList<IList<Object>> values = response.Values;
-            
+
+            DateTime now = DateTime.Now;
+
             if (values != null && values.Count > 0)//0이상이거나 null
             {
                 foreach (var row in values)
                 {
-                    
-                    if (DateTime.Compare(DateTime.Parse(row[0].ToString()),DateTime.Parse(GetSeardate())) == 0)
+
+                    if (DateTime.Compare(DateTime.Parse(row[0].ToString()), now) < 0)
                     {
-                        // TODO : Database Save
-                        Insert(row);
+                        if(Convert.ToInt32(GetDate(DateTime.Parse(row[0].ToString()))) == 0)
+                            Insert(row);
                     }
                 }
             }
@@ -86,35 +91,71 @@ namespace GoogleSpreadRead
 
             return strConnection;                                           
         }
-
-        private static string GetSeardate()
+        private static object GetDate(DateTime date)
         {
-            var builder = new ConfigurationBuilder()
-                                .SetBasePath(Directory.GetCurrentDirectory())
-                                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            using NpgsqlConnection conn = new NpgsqlConnection(GetDbConnection());
+            conn.Open();
 
-            var val = builder.Build().GetSection("SearchDate").Value;
+            using NpgsqlCommand cmd = new NpgsqlCommand("select count(*) from cs_daily where date = @date", conn);
 
-            return val;
+            cmd.Parameters.AddWithValue("@date", date);
+
+            var result = cmd.ExecuteScalar();
+            return result;
         }
 
         private static void Insert(IList<Object> row)
         {
             try
             {
-                using NpgsqlConnection conn = new NpgsqlConnection(GetDbConnection());
-                conn.Open();
+                if(Convert.ToDecimal(row[1].ToString()) != 0)
+                {
+                    using NpgsqlConnection conn = new NpgsqlConnection(GetDbConnection());
+                    conn.Open();
 
-                using NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO student(id,name) VALUES (" +
-                       "@Id,@Name)", conn);
-                cmd.Parameters.AddWithValue("@Id", row[1]);
-                cmd.Parameters.AddWithValue("@Name", row[2]);
+                    using NpgsqlCommand cmd = new NpgsqlCommand("INSERT INTO cs_daily VALUES (" +
+                           "@date, @order_cnt, @order_cnt_bh, @order_cnt_hpg, @order_cnt_act," +
+                           "@cr, @cr_bh, @cr_hpg, @cr_act," +
+                           "@call_inbound, @call_inbound_bh, @call_inbound_hpg, @call_inbound_act," +
+                           "@call_inbound_suc, @call_inbound_suc_bh, @call_inbound_suc_hpg, @call_inbound_suc_act," +
+                           "@call_inbound_rate, @call_inbound_rate_bh, @call_inbound_rate_hpg, @call_inbound_rate_act," +
+                           "@direct, @chat, @total_inbound, @total_inbound_suc, @total_employee, @call_employee, @cpd)", conn);
 
-                int rows = cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@date", DateTime.Parse(row[0].ToString()));
+                    cmd.Parameters.AddWithValue("@order_cnt", Convert.ToDecimal(row[1].ToString()));
+                    cmd.Parameters.AddWithValue("@order_cnt_bh", Convert.ToDecimal(row[2].ToString()));
+                    cmd.Parameters.AddWithValue("@order_cnt_hpg", Convert.ToDecimal(row[3].ToString()));
+                    cmd.Parameters.AddWithValue("@order_cnt_act", Convert.ToDecimal(row[4].ToString()));
+                    cmd.Parameters.AddWithValue("@cr", Convert.ToDecimal(row[5].ToString().TrimEnd(new char[] { '%', ' ' })));
+                    cmd.Parameters.AddWithValue("@cr_bh", Convert.ToDecimal(row[6].ToString().TrimEnd(new char[] { '%', ' ' })));
+                    cmd.Parameters.AddWithValue("@cr_hpg", Convert.ToDecimal(row[7].ToString().TrimEnd(new char[] { '%', ' ' })));
+                    cmd.Parameters.AddWithValue("@cr_act", Convert.ToDecimal(row[8].ToString().TrimEnd(new char[] { '%', ' ' })));
+                    cmd.Parameters.AddWithValue("@call_inbound", Convert.ToDecimal(row[9].ToString()));
+                    cmd.Parameters.AddWithValue("@call_inbound_bh", Convert.ToDecimal(row[10].ToString()));
+                    cmd.Parameters.AddWithValue("@call_inbound_hpg", Convert.ToDecimal(row[11].ToString()));
+                    cmd.Parameters.AddWithValue("@call_inbound_act", Convert.ToDecimal(row[12].ToString()));
+                    cmd.Parameters.AddWithValue("@call_inbound_suc", Convert.ToDecimal(row[13].ToString()));
+                    cmd.Parameters.AddWithValue("@call_inbound_suc_bh", Convert.ToDecimal(row[14].ToString()));
+                    cmd.Parameters.AddWithValue("@call_inbound_suc_hpg", Convert.ToDecimal(row[15].ToString()));
+                    cmd.Parameters.AddWithValue("@call_inbound_suc_act", Convert.ToDecimal(row[16].ToString()));
+                    cmd.Parameters.AddWithValue("@call_inbound_rate", Convert.ToDecimal(row[17].ToString().TrimEnd(new char[] { '%', ' ' })));
+                    cmd.Parameters.AddWithValue("@call_inbound_rate_bh", Convert.ToDecimal(row[18].ToString().TrimEnd(new char[] { '%', ' ' })));
+                    cmd.Parameters.AddWithValue("@call_inbound_rate_hpg", Convert.ToDecimal(row[19].ToString().TrimEnd(new char[] { '%', ' ' })));
+                    cmd.Parameters.AddWithValue("@call_inbound_rate_act", Convert.ToDecimal(row[20].ToString().TrimEnd(new char[] { '%', ' ' })));
+                    cmd.Parameters.AddWithValue("@direct", Convert.ToDecimal(row[21].ToString()));
+                    cmd.Parameters.AddWithValue("@chat", Convert.ToDecimal(row[22].ToString()));
+                    cmd.Parameters.AddWithValue("@total_inbound", Convert.ToDecimal(row[23].ToString()));
+                    cmd.Parameters.AddWithValue("@total_inbound_suc", Convert.ToDecimal(row[24].ToString()));
+                    cmd.Parameters.AddWithValue("@total_employee", Convert.ToDecimal(row[25].ToString()));
+                    cmd.Parameters.AddWithValue("@call_employee", Convert.ToDecimal(row[26].ToString()));
+                    cmd.Parameters.AddWithValue("@cpd", Convert.ToDecimal(row[27].ToString()));
+
+                    int rows = cmd.ExecuteNonQuery();
+                }
             }
             catch(Exception e)
             {   
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Error Row Date : " + row[0] + " Message : " + e.Message);
             }
         } 
     }
