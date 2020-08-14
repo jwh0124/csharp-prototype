@@ -3,6 +3,7 @@ using MQTTnet.Client;
 using MQTTnet.Client.Options;
 using MQTTnet.Client.Receiving;
 using MQTTnet.Protocol;
+using Newtonsoft.Json;
 using System;
 using System.Text.Json;
 using System.Threading;
@@ -30,15 +31,18 @@ namespace MQTTPublishPrototype
 
             await client.ConnectAsync(options);
 
-            int value = 1;
 
             while (true)
             {
-                value = value == 0 ? 1 : 0;
+                var payload = new
+                {
+                    Face= new byte[2048],
+                    UserNo= "12345"
+                };
 
                 var message = new MqttApplicationMessageBuilder()
-                    .WithTopic("door/open")
-                    .WithPayload(string.Format("{0}",value))
+                    .WithTopic("auth/face/request")
+                    .WithPayload(string.Format("{0}",JsonConvert.SerializeObject(payload)))
                     .WithExactlyOnceQoS()
                     .Build();
 
