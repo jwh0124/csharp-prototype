@@ -36,13 +36,14 @@ namespace MQTTPublishPrototype
             {
                 var payload = new
                 {
-                    Face= new byte[2048],
-                    UserNo= "12345"
+                    Address = "1.0.0",
+                    Gateway= "1.0.1",
+                    Netmask = "1.1.1"
                 };
 
                 var message = new MqttApplicationMessageBuilder()
-                    .WithTopic("auth/face/request")
-                    .WithPayload(string.Format("{0}",JsonConvert.SerializeObject(payload)))
+                    .WithTopic("setting/request")
+                    /*.WithPayload("AuthWay")*/
                     .WithExactlyOnceQoS()
                     .Build();
 

@@ -6,9 +6,11 @@ using MQTTnet.Client.Receiving;
 using MQTTnet.Client.Subscribing;
 using MQTTnet.Exceptions;
 using MQTTnet.Protocol;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -45,16 +47,26 @@ namespace MQTTSubcriberPrototype
 
             client.UseConnectedHandler(async e =>
             {
-                await client.SubscribeAsync("auth/face/request");
-                await client.SubscribeAsync("auth/face/response");
+                /*await client.SubscribeAsync("auth/face/response");
                 await client.SubscribeAsync("auth/card/request");
                 await client.SubscribeAsync("auth/card/response");
                 await client.SubscribeAsync("patch/request");
+                await client.SubscribeAsync("setting/response");*/
+                await client.SubscribeAsync("network/info/response");
+                await client.SubscribeAsync("setting/response");
             });
 
             client.UseApplicationMessageReceivedHandler(e =>
             {
-                Console.WriteLine(">>>>>" + e.ApplicationMessage.Topic + " Value " + e.ApplicationMessage.ConvertPayloadToString());
+                List<Setting> a = JsonConvert.DeserializeObject<List<Setting>>(e.ApplicationMessage.ConvertPayloadToString());
+
+
+                Console.WriteLine(">>>>> Setting Count : " + a.Count());
+                foreach (var item in a)
+                {
+                    Console.WriteLine("Key : " + item.Key + " Value : " + item.Value);
+                }
+                /*Console.WriteLine(">>>>> Setting Key : " + a.Count());*/
             });
 
             try
