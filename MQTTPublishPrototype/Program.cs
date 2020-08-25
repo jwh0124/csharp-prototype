@@ -43,7 +43,7 @@ namespace MQTTPublishPrototype
 
                 var message = new MqttApplicationMessageBuilder()
                     .WithTopic("setting/request")
-                    /*.WithPayload("AuthWay")*/
+                    .WithPayload(JsonConvert.SerializeObject(payload))
                     .WithExactlyOnceQoS()
                     .Build();
 
