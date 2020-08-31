@@ -47,26 +47,14 @@ namespace MQTTSubcriberPrototype
 
             client.UseConnectedHandler(async e =>
             {
-                /*await client.SubscribeAsync("auth/face/response");
-                await client.SubscribeAsync("auth/card/request");
-                await client.SubscribeAsync("auth/card/response");
-                await client.SubscribeAsync("patch/request");
-                await client.SubscribeAsync("setting/response");*/
-                await client.SubscribeAsync("network/info/response");
-                await client.SubscribeAsync("setting/response");
+                await client.SubscribeAsync("cam/error/request");
+                await client.SubscribeAsync("cam/image/request");
             });
 
             client.UseApplicationMessageReceivedHandler(e =>
             {
-                List<Setting> a = JsonConvert.DeserializeObject<List<Setting>>(e.ApplicationMessage.ConvertPayloadToString());
-
-
-                Console.WriteLine(">>>>> Setting Count : " + a.Count());
-                foreach (var item in a)
-                {
-                    Console.WriteLine("Key : " + item.Key + " Value : " + item.Value);
-                }
-                /*Console.WriteLine(">>>>> Setting Key : " + a.Count());*/
+                Console.WriteLine("Topic : " + e.ApplicationMessage.Topic);
+                Console.WriteLine("Value : " + e.ApplicationMessage.ConvertPayloadToString());
             });
 
             try
