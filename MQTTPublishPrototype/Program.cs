@@ -31,19 +31,36 @@ namespace MQTTPublishPrototype
 
             await client.ConnectAsync(options);
 
+            var payload = new
+            {
+                Address = "1.0.0",
+                Gateway = "1.0.1",
+                Netmask = "1.1.1"
+            };
 
-            while (true)
+            var message = new MqttApplicationMessageBuilder()
+                    .WithTopic("setting/response")
+                    .WithPayload(JsonConvert.SerializeObject(payload))
+                    .WithExactlyOnceQoS()
+                    .Build();
+
+            await client.PublishAsync(message);
+
+            Console.WriteLine(">>> Topic : " + message.Topic + " Payload Value: " + message.ConvertPayloadToString());
+
+            //Thread.Sleep(30000);
+
+            /*while (true)
             {
                 var payload = new
                 {
                     Address = "1.0.0",
-                    Gateway= "1.0.1",
+                    Gateway = "1.0.1",
                     Netmask = "1.1.1"
                 };
 
                 var message = new MqttApplicationMessageBuilder()
                     .WithTopic("setting/request")
-                    .WithPayload(JsonConvert.SerializeObject(payload))
                     .WithExactlyOnceQoS()
                     .Build();
 
@@ -51,8 +68,8 @@ namespace MQTTPublishPrototype
 
                 Console.WriteLine(">>> Topic : " + message.Topic + " Payload Value: " + message.ConvertPayloadToString());
 
-                Thread.Sleep(300);
-            }
+                Thread.Sleep(30000);
+            }*/
         }
     }
 }

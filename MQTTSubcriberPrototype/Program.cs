@@ -47,10 +47,7 @@ namespace MQTTSubcriberPrototype
 
             client.UseConnectedHandler(async e =>
             {
-                await client.SubscribeAsync("cam/control/request");
-                await client.SubscribeAsync("cam/status/request");
-                await client.SubscribeAsync("cam/error/request");
-                await client.SubscribeAsync("api/connection/status");
+                await client.SubscribeAsync("setting/response");
             });
 
             client.UseApplicationMessageReceivedHandler(e =>
