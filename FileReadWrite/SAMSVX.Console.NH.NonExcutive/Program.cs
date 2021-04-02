@@ -24,8 +24,6 @@ namespace SAMSVX.Console.NH.NonExcutive
             // 경로 이름이 너무 긴 경우 (PathTooLongException)
             // 디스크가 꽉 찬 경우(IOException)
 
-
-
             // 파일 데이터 자르기
             for (int i = 0; i < textValue.Length; i++)
             {
