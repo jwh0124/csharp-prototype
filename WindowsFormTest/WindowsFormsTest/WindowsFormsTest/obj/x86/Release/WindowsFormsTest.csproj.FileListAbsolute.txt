@@ -1,6 +1,0 @@
-C:\Users\Developer\Desktop\ProtoType\WindowsFormTest\WindowsFormsTest\WindowsFormsTest\obj\x86\Release\ResolveAssemblyReference.cache
-C:\Users\Developer\Desktop\ProtoType\WindowsFormTest\WindowsFormsTest\WindowsFormsTest\obj\x86\Release\WindowsFormsTest.TestWindowsForms.resources
-C:\Users\Developer\Desktop\ProtoType\WindowsFormTest\WindowsFormsTest\WindowsFormsTest\obj\x86\Release\WindowsFormsTest.Form.UserControl1.resources
-C:\Users\Developer\Desktop\ProtoType\WindowsFormTest\WindowsFormsTest\WindowsFormsTest\obj\x86\Release\WindowsFormsTest.Properties.Resources.resources
-C:\Users\Developer\Desktop\ProtoType\WindowsFormTest\WindowsFormsTest\WindowsFormsTest\obj\x86\Release\GenerateResource.read.1.tlog
-C:\Users\Developer\Desktop\ProtoType\WindowsFormTest\WindowsFormsTest\WindowsFormsTest\obj\x86\Release\GenerateResource.write.1.tlog
