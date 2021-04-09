@@ -1,7 +1,0 @@
-C:\Users\Developer\Desktop\UDPClientPrototype\UDPClientPrototype\bin\Debug\UDPClientPrototype.exe
-C:\Users\Developer\Desktop\UDPClientPrototype\UDPClientPrototype\bin\Debug\UDPClientPrototype.pdb
-C:\Users\Developer\Desktop\UDPClientPrototype\UDPClientPrototype\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Developer\Desktop\UDPClientPrototype\UDPClientPrototype\obj\x86\Debug\UDPClientPrototype.exe
-C:\Users\Developer\Desktop\UDPClientPrototype\UDPClientPrototype\obj\x86\Debug\UDPClientPrototype.pdb
-C:\Users\Developer\Desktop\[samsAZ]\UDPClientPrototype\UDPClientPrototype\obj\x86\Debug\UDPClientPrototype.exe
-C:\Users\Developer\Desktop\[samsAZ]\UDPClientPrototype\UDPClientPrototype\obj\x86\Debug\UDPClientPrototype.pdb
