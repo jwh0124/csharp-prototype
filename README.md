@@ -1,15 +1,12 @@
----
-title: C Sharp Prototype
-author: whjung
-description: C Sharp Prototype Repository
-last_modified_at: 2021-04-21T17:31:00+09:00
----
+# CSharp Prototype
 
-## C Sharp Prototype ##
+> CSharp Prototype Repository
 
-> C Sharp Prototype Repository
+## Overview
 
-### Project Description ###
+- CSharp study 용 Repository
+
+## :rocket: Example
 
 - 3Tier
   - 3-Tier (Presentation Layer, Business Layer, Data Access Layer)
