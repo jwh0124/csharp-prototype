@@ -1,3 +1,5 @@
 # EFCore Migration Example
 
-<img width="80%" src="https://github.com/jwh0124/csharp/assets/34205527/59523a35-5a70-4920-90fb-dc684039f0df"/>
+<p align="center">
+  <img src="![EFCore-Migration](https://github.com/jwh0124/csharp/assets/34205527/8030c232-de71-465a-a6e4-532c8b6d032b)">
+</p>
