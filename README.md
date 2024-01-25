@@ -12,9 +12,12 @@
   - 3-Tier (Presentation Layer, Business Layer, Data Access Layer)
 - Marshalling : 한 객체의 메모리에서의 표현 방식을 저장 또한 전송에 적합한 다른 데이터 형식을 변환하는 과정
   - Native Code (C++) SO file marshalling
-- EFCode
-  - Entity Framework
+- EFCore
+  - Entity Framework Core
   - User CRUD
+- EFCoreExample
+  - Entity Framework Core
+  - Migration Test
 - ConvertFloatToByte
   - Convert Float Array to Byte Array
 - DateCompare
