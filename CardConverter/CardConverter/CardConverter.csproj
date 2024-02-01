@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-CardConverter-2431edf3-26c3-4730-812d-97f0ec1c4d45</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SHSystem.BS2.CardConverter">
+      <HintPath>bin\Debug\net8.0\SHSystem.BS2.CardConverter.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
