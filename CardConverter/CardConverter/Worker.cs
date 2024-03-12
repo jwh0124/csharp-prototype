@@ -16,17 +16,34 @@ namespace CardConverter
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var cardNo = "0000001740108077";
+            byte[] expected = {
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x35, 0x38, 0x41, 0x38, 0x39, 0x45, 0x46, 0x41 };
+
+            var cardNo = "0000000058A89EFA";
 
             _logger.LogInformation(_cardConverter.CardConverter("SH.GOV.64.BS2V2", cardNo));
+            
+            _logger.LogInformation(Convert.ToBase64String(expected));
 
-            _logger.LogInformation(_cardConverter.CardConverter("SH.GOV.64.BS2V2MSG", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAADE3NDAxMDgwNzc="));
+            byte[] cardBytes = {
+                0x33, 0x35, 0x33, 0x38, 0x34, 0x31, 0x33, 0x38,
+                0x33, 0x39, 0x34, 0x35, 0x34, 0x36, 0x34, 0x31,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-            var convertCardNo = CSHGov64BS2V2(cardNo);
-            _logger.LogInformation("{CSHGov64BS2V2}", convertCardNo);
+            _logger.LogInformation(_cardConverter.CardConverter("SH.GOV.64.BS2V2MSG", Convert.ToBase64String(cardBytes)));
+
+            _logger.LogInformation(Convert.ToBase64String(cardBytes));
+
+
+            //var convertCardNo = CSHGov64BS2V2(cardNo);
+            //_logger.LogInformation("{CSHGov64BS2V2}", convertCardNo);
                        
-            var bytes = Convert.FromBase64String("MzEzNzM0MzAzMTMwMzgzMDM3MzcAAAAAAAAAAAAAAAA=");
-            _logger.LogInformation("{CSHGov64BS2V2MSG}", CSHGov64BS2V2MSG(Convert.ToBase64String(bytes)));
+            //var bytes = Convert.FromBase64String("MzEzNzM0MzAzMTMwMzgzMDM3MzcAAAAAAAAAAAAAAAA=");
+            //_logger.LogInformation("{CSHGov64BS2V2MSG}", CSHGov64BS2V2MSG(Convert.ToBase64String(bytes)));
         }
 
         public string CSHGov64BS2V2(string Data)
