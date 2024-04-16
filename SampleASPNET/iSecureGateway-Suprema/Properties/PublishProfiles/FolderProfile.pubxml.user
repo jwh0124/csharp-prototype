@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\whjung\dev\iSecure-Gateway\Suprema\iSecureGateway-Suprema\iSecureGateway-Suprema\bin\Release\net8.0\publish\</_PublishTargetUrl>
+    <History>True|2024-04-15T02:28:07.9789430Z;True|2024-04-15T11:12:07.2277710+09:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
