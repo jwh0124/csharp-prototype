@@ -15,7 +15,5 @@ namespace iSecureGateway_Suprema.Models
         public required string Name { get; set; }
 
         public virtual ICollection<AccessLevel>? AccessLevels { get; set; }
-
-        public virtual ICollection<User>? Users { get; set; }
     }
 }

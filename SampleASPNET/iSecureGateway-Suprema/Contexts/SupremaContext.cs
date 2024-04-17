@@ -42,28 +42,6 @@ namespace iSecureGateway_Suprema.Contexts
 
         public DbSet<AccessLevel> AccessLevels { get; set; }
 
-        public DbSet<AccessEvent> AccessEvents { get; set; }
-
-        public DbSet<DoorEvent> DoorEvents { get; set; }
-
         public DbSet<AccessSchedule> AccessSchedules { get; set; }
-
-        public DbSet<ACU> ACUs { get; set; }
-
-        public DbSet<Card> Cards { get; set; }
-
-        public DbSet<DoorSchedule> DoorSchedules { get; set; }
-
-        public DbSet<Input> Inputs { get; set; }
-
-        public DbSet<Module> Modules { get; set; }
-
-        public DbSet<Reader> Readers { get; set; }
-
-        public DbSet<ReaderStatus> ReaderStatuses { get; set; }
-
-        public DbSet<Schedule> Schedules { get; set; }
-
-        public DbSet<User> Users { get; set; }
     }
 }

@@ -53,28 +53,15 @@ namespace iSecureGateway_Suprema.Services
             return accessGroup;
         }
 
-        public async Task UpdateAccessGroup(string code, AccessGroup accessGroup)
+        public async Task UpdateAccessGroup(AccessGroup accessGroup)
         {
-            var findAccessGroup = await accessGroupContextHandler.FindByCondition(entity => entity.Code.Equals(code));
-            if (findAccessGroup != null)
-            {
-                // TODO : Child update
-                await accessGroupContextHandler.Update(accessGroup);
-
-                // TODO : Device apply
-            }
+            await accessGroupContextHandler.Update(accessGroup);
         }
 
 
-        public async Task DeleteAccessGroup(string code)
+        public async Task DeleteAccessGroup(AccessGroup accessGroup)
         {
-            var findAccessGroup = await accessGroupContextHandler.FindByCondition(entity => entity.Code.Equals(code));
-            if (findAccessGroup != null)
-            {
-                await accessGroupContextHandler.Delete(findAccessGroup);
-
-                // TODO : Device apply
-            }
+            await accessGroupContextHandler.Delete(accessGroup);
         }
     }
 }

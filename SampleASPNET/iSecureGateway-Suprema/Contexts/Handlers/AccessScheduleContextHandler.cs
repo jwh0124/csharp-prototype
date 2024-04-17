@@ -5,96 +5,81 @@ using System.Linq.Expressions;
 
 namespace iSecureGateway_Suprema.Contexts.Handlers
 {
-    public class AccessLevelContextHandler : IBaseRepository<AccessLevel>
+    public class AccessScheduleContextHandler(IServiceProvider serviceProvider) : IBaseRepository<AccessSchedule>
     {
-        private readonly IServiceProvider serviceProvider;
+        private readonly IServiceProvider serviceProvider = serviceProvider;
 
-        public AccessLevelContextHandler(IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider;
-        }
-
-        public async Task<ICollection<AccessLevel>> FindAll()
+        public async Task<ICollection<AccessSchedule>> FindAll()
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
-            return await context.AccessLevels.AsNoTracking().ToListAsync();
+            return await context.AccessSchedules.AsNoTracking().ToListAsync();
         }
 
-        public async Task<ICollection<AccessLevel>> FindByConditionList(Expression<Func<AccessLevel, bool>> expression)
+        public async Task<ICollection<AccessSchedule>> FindByConditionList(Expression<Func<AccessSchedule, bool>> expression)
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
-            return await context.AccessLevels.Where(expression).AsNoTracking().ToListAsync();
+            return await context.AccessSchedules.Where(expression).AsNoTracking().ToListAsync();
         }
 
-        public async Task<AccessLevel?> FindByCondition(Expression<Func<AccessLevel, bool>> expression)
+        public async Task<AccessSchedule?> FindByCondition(Expression<Func<AccessSchedule, bool>> expression)
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
-            return await context.AccessLevels.Where(expression).AsNoTracking().FirstOrDefaultAsync();
+            return await context.AccessSchedules.Where(expression).AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public async Task Insert(AccessLevel entity)
+        public async Task Insert(AccessSchedule accessSchedule)
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
             try
             {
-                context.Entry(entity).State = EntityState.Added;
-                if(entity.AccessSchedule != null)
-                {
-                    context.Entry(entity.AccessSchedule!).State = EntityState.Detached;
-                }
-                
+                context.AccessSchedules.Add(accessSchedule);
 
                 await context.SaveChangesAsync();
             }
             catch
             {
-                context.Entry(entity).State = EntityState.Detached;
+                context.Entry(accessSchedule).State = EntityState.Detached;
                 throw;
             }
         }
-        public async Task Update(AccessLevel entity)
+        public async Task Update(AccessSchedule accessSchedule)
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
             try
             {
-                context.Entry(entity).State = EntityState.Modified;
-                if (entity.AccessSchedule != null)
-                {
-                    context.Entry(entity.AccessSchedule!).State = EntityState.Detached;
-                }
-                
+                context.Entry(accessSchedule).State = EntityState.Modified;
                 await context.SaveChangesAsync();
             }
             catch
             {
-                context.Entry(entity).State = EntityState.Detached;
+                context.Entry(accessSchedule).State = EntityState.Detached;
                 throw;
             }
         }
 
-        public async Task Delete(AccessLevel entity)
+        public async Task Delete(AccessSchedule accessSchedule)
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
             try
             {
-                context.AccessLevels.Remove(entity);
+                context.AccessSchedules.Remove(accessSchedule);
 
                 await context.SaveChangesAsync();
             }
             catch
             {
-                context.Entry(entity).State = EntityState.Detached;
+                context.Entry(accessSchedule).State = EntityState.Detached;
                 throw;
             }
         }

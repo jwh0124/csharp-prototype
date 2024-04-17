@@ -2,12 +2,10 @@ using FluentValidation.AspNetCore;
 using iSecureGateway_Suprema;
 using iSecureGateway_Suprema.Commons.Config;
 using iSecureGateway_Suprema.Contexts;
-using iSecureGateway_Suprema.Libs;
 using iSecureGateway_Union.Commons.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MQTTnet.AspNetCore;
-using MQTTnet.Server;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -106,18 +104,6 @@ catch (Exception e)
 app.UseSwagger();
 app.UseSwaggerUI();
 //}
-
-if (mqttEnabled)
-{
-    app.UseMqttServer(server =>
-    {
-        var mqttConnector = app.Services.GetService<MqttConnector>();
-        server.ClientConnectedAsync += mqttConnector!.OnClientConnected;
-        server.ClientDisconnectedAsync += mqttConnector!.OnClientDisConnected;
-
-        app.Lifetime.ApplicationStopping.Register(() => server.StopAsync());
-    });
-}
 
 app.UseMiddleware<HttpMiddleware>();
     

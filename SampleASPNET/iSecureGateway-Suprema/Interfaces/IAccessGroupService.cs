@@ -10,8 +10,8 @@ namespace iSecureGateway_Suprema.Interfaces
 
         Task<AccessGroup> RegistAccessGroup(AccessGroup accessGroup);
 
-        Task UpdateAccessGroup(string code, AccessGroup accessGroup);
+        Task UpdateAccessGroup(AccessGroup accessGroup);
 
-        Task DeleteAccessGroup(string code);
+        Task DeleteAccessGroup(AccessGroup accessGroup);
     }
 }

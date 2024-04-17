@@ -1,10 +1,7 @@
 ﻿using EntityFramework.Exceptions.Common;
-using iSecureGateway_Suprema.Commons.Http.Request;
 using iSecureGateway_Suprema.Commons.Http.Response;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Net;
-using System.Text;
 using static iSecureGateway_Suprema.Commons.Filters.LegacyServiceFilter;
 
 namespace iSecureGateway_Union.Commons.Middleware
@@ -23,38 +20,7 @@ namespace iSecureGateway_Union.Commons.Middleware
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
-            {
-                httpContext.Request.EnableBuffering();
-                var httpRequest = httpContext.Request;
-                var serviceName = httpRequest.RouteValues["action"];
-
-                if (serviceName != null)
-                {
-                    if (IncludeLegacyService(serviceName))
-                    {
-                        var rawRequestBody = await GetRawBodyAsync(httpRequest);
-                        var entity = JObject.Parse(rawRequestBody);
-                        var requestInfo = entity["info"];
-
-                        if (requestInfo != null)
-                        {
-                            var requestInfoEntity = JsonConvert.DeserializeObject<RequestInfoDto>(requestInfo.ToString());
-
-                            httpContext.Response.OnStarting(FinishHttpRequest, httpContext);
-
-                            logger.LogInformation(requestInfoEntity!.Id.ToString());
-
-                            logger.LogInformation(requestInfoEntity!.Operator.ToString());
-
-                            logger.LogInformation(GetLegacyServiceName(serviceName).ToString());
-
-                            logger.LogInformation(ProcessStatus.ENROLL.ToString());
-
-                            logger.LogInformation(ProcessStatus.PROGRESS.ToString());
-                        }
-                    }
-                }
-
+            { 
                 await next(httpContext);
             }
             catch (Exception exception)
@@ -92,33 +58,6 @@ namespace iSecureGateway_Union.Commons.Middleware
             }
 
             return (code, responseEnum);
-        }
-
-        public (RequestInfoDto, ServiceEventType) GetRequestInfoData()
-        {
-            RequestInfoDto requestInfoDto = new RequestInfoDto { Id = Guid.NewGuid(), Operator = "test" };
-            return (requestInfoDto, ServiceEventType.AddAccessGroup);
-        }
-
-        public async Task<string> GetRawBodyAsync(HttpRequest request, Encoding? encoding = null)
-        {
-            if (!request.Body.CanSeek)
-            {
-                // We only do this if the stream isn't *already* seekable,
-                // as EnableBuffering will create a new stream instance
-                // each time it's called
-                request.EnableBuffering();
-            }
-
-            request.Body.Position = 0;
-
-            var reader = new StreamReader(request.Body, encoding ?? Encoding.UTF8);
-
-            var body = await reader.ReadToEndAsync().ConfigureAwait(false);
-
-            request.Body.Position = 0;
-
-            return body;
         }
     }
 }

@@ -16,6 +16,6 @@ namespace iSecureGateway_Suprema.Models
 
         public virtual AccessSchedule? AccessSchedule { get; set; }
 
-        public ICollection<Reader>? Readers { get; set; }
+        public virtual ICollection<AccessGroup>? AccessGroups { get; set; }
     }
 }

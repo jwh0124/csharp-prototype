@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
-using FluentValidation;
-using iSecureGateway_Suprema.Commons.Config.Auth;
-using iSecureGateway_Suprema.Commons.Http.Request;
 using iSecureGateway_Suprema.Commons.Http.Response;
 using iSecureGateway_Suprema.DTO;
 using iSecureGateway_Suprema.Interfaces;
 using iSecureGateway_Suprema.Models;
-using iSecureGateway_Union.Commons;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iSecureGateway_Suprema.Controllers
@@ -19,22 +15,16 @@ namespace iSecureGateway_Suprema.Controllers
     {
         private readonly ILogger<AccessGroupController> logger;
         private readonly IAccessGroupService accessGroupService;
-        private readonly IValidator<AccessGroupDto> accessGroupValidator;
-        private readonly IValidator<RequestInfoDto> requestInfoValidator;
         private readonly IMapper mapper;
 
-        public AccessGroupController(ILogger<AccessGroupController> logger, IAccessGroupService accessGroupService, 
-                                     IValidator<AccessGroupDto> accessGroupValidator, IValidator<RequestInfoDto> requestInfoValidator, IMapper mapper)
+        public AccessGroupController(ILogger<AccessGroupController> logger, IAccessGroupService accessGroupService, IMapper mapper)
         {
             this.logger = logger;
             this.accessGroupService = accessGroupService;
-            this.accessGroupValidator = accessGroupValidator;
-            this.requestInfoValidator = requestInfoValidator;
             this.mapper = mapper;
         }
 
         [HttpGet(Name = "GetAccessGroupList")]
-        [ServiceFilter(typeof(HttpAuthentication))]
         public async Task<IActionResult> GetAccessGroupList()
         {
             logger.LogDebug("AccessGroupController >>> GetAccessGroupList");
@@ -45,7 +35,6 @@ namespace iSecureGateway_Suprema.Controllers
         }
 
         [HttpGet("{code}", Name = "GetAccessGroup")]
-        [ServiceFilter(typeof(HttpAuthentication))]
         public async Task<IActionResult> GetAccessGroup(string code)
         {
             logger.LogInformation("AccessGroupController >>> GetAccessGroup");
@@ -56,56 +45,39 @@ namespace iSecureGateway_Suprema.Controllers
         }
 
         [HttpPost(Name = "AddAccessGroup")]
-        [ServiceFilter(typeof(HttpAuthentication))]
-        public async Task<IActionResult> AddAccessGroup([FromBody] RequestCommonDto<AccessGroupDto> accessGroupDto)
+        public async Task<IActionResult> AddAccessGroup([FromBody] AccessGroupDto accessGroupDto)
         {
             logger.LogInformation("AccessGroupController >>> PostAccessGroup");
 
-            var validationResult = await accessGroupValidator.ValidateAsync(accessGroupDto.TData!);
-
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(new ApiResponseBody<object>(ApiResponse.BAD_REQUEST, validationResult.Errors.First().ErrorMessage));
-            }
-
-            var accessGroup = mapper.Map<AccessGroup>(accessGroupDto.TData);
+            var accessGroup = mapper.Map<AccessGroup>(accessGroupDto);
 
             return Ok(new ApiResponseBody<object>(ApiResponse.SUCCESS, mapper.Map<AccessGroupDto>(await accessGroupService.RegistAccessGroup(accessGroup))));
         }
 
         [HttpPut("{code}", Name = "PutAccessGroup")]
-        [ServiceFilter(typeof(HttpAuthentication))]
-        public async Task<IActionResult> PutAccessGroup(string code, [FromBody] RequestCommonDto<AccessGroupDto> accessGroupDto)
+        public async Task<IActionResult> PutAccessGroup(string code, [FromBody] AccessGroupDto accessGroupDto)
         {
             logger.LogDebug("AccessGroupController >>> PutAccessGroup");
 
-            var validationResult = await accessGroupValidator.ValidateAsync(accessGroupDto.TData!);
-
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(new ApiResponseBody<object>(ApiResponse.BAD_REQUEST, validationResult.Errors.First().ErrorMessage));
-            }
-
-            await accessGroupService.UpdateAccessGroup(code, mapper.Map<AccessGroup>(accessGroupDto));
+            await accessGroupService.UpdateAccessGroup(mapper.Map<AccessGroup>(accessGroupDto));
 
             return Ok(new ApiResponseBody<object>(ApiResponse.SUCCESS));
         }
 
 
         [HttpDelete("{code}", Name = "DeleteAccessGroup")]
-        [ServiceFilter(typeof(HttpAuthentication))]
-        public async Task<IActionResult> DeleteAccessGroup(string code, [FromBody] RequestCommonDto<RequestInfoDto> requestInfoDto)
+        public async Task<IActionResult> DeleteAccessGroup(string code)
         {
             logger.LogInformation("AccessGroupController >>> DeleteAccessGroup");
 
-            var validationResult = await requestInfoValidator.ValidateAsync(requestInfoDto.Info);
+            var findAccessGroup = await accessGroupService.RetrieveAccessGroup(code);
 
-            if (!validationResult.IsValid)
+            if (findAccessGroup == null)
             {
-                return BadRequest(new ApiResponseBody<object>(ApiResponse.BAD_REQUEST, validationResult.Errors.First().ErrorMessage));
+                return NotFound(new ApiResponseBody<object>(ApiResponse.NOT_FOUND));
             }
 
-            await accessGroupService.DeleteAccessGroup(code);
+            await accessGroupService.DeleteAccessGroup(findAccessGroup);
 
 
             return Ok(new ApiResponseBody<object>(ApiResponse.SUCCESS));

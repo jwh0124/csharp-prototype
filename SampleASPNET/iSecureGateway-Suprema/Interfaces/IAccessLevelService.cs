@@ -10,8 +10,8 @@ namespace iSecureGateway_Suprema.Interfaces
 
         Task<AccessLevel> RegistAccessLevel(AccessLevel accessLevel);
 
-        Task UpdateAccessLevel(string code, AccessLevel accessLevel);
+        Task UpdateAccessLevel(AccessLevel accessLevel);
 
-        Task DeleteAccessLevel(string code);
+        Task DeleteAccessLevel(AccessLevel accessLevel);
     }
 }

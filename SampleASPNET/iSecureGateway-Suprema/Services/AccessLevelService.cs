@@ -1,4 +1,5 @@
 ﻿using iSecureGateway_Suprema.Contexts.Handlers;
+using iSecureGateway_Suprema.DTO;
 using iSecureGateway_Suprema.Interfaces;
 using iSecureGateway_Suprema.Models;
 
@@ -8,11 +9,13 @@ namespace iSecureGateway_Suprema.Services
     {
         private readonly ILogger<AccessLevelService> logger;
         private readonly AccessLevelContextHandler accessLevelContextHandler;
+        private readonly AccessScheduleContextHandler accessScheduleContextHandler;
 
-        public AccessLevelService(ILogger<AccessLevelService> logger, AccessLevelContextHandler accessLevelContextHandler)
+        public AccessLevelService(ILogger<AccessLevelService> logger, AccessLevelContextHandler accessLevelContextHandler, AccessScheduleContextHandler accessScheduleContextHandler)
         {
             this.logger = logger;
             this.accessLevelContextHandler = accessLevelContextHandler;
+            this.accessScheduleContextHandler = accessScheduleContextHandler;
         }
 
         public async Task<ICollection<AccessLevel>> RetrieveAccessLevelList()
@@ -26,6 +29,17 @@ namespace iSecureGateway_Suprema.Services
 
         public async Task<AccessLevel> RegistAccessLevel(AccessLevel accessLevel)
         {
+            accessLevel.Id = await accessLevelContextHandler.FindByMaxId() + 1;
+
+            if (accessLevel.AccessSchedule != null)
+            {
+                var findAccessSchedule = await accessScheduleContextHandler.FindByCondition(entity => entity.Code.Equals(accessLevel.AccessSchedule.Code));
+                if (findAccessSchedule != null)
+                {
+                    accessLevel.AccessSchedule = findAccessSchedule;
+                }
+            }
+
             await accessLevelContextHandler.Insert(accessLevel);
 
             // TODO : Device apply
@@ -33,27 +47,23 @@ namespace iSecureGateway_Suprema.Services
             return accessLevel;
         }
 
-        public async Task UpdateAccessLevel(string code, AccessLevel accessLevel)
+        public async Task UpdateAccessLevel(AccessLevel accessLevel)
         {
-            var findAccessLevel = await accessLevelContextHandler.FindByCondition(entity => entity.Code.Equals(code));
-            if (findAccessLevel != null)
+            if (accessLevel.AccessSchedule != null)
             {
-                // TODO : Child update
-                await accessLevelContextHandler.Update(accessLevel);
-
-                // TODO : Device apply
+                var findAccessSchedule = await accessScheduleContextHandler.FindByCondition(entity => entity.Code.Equals(accessLevel.AccessSchedule.Code));
+                if (findAccessSchedule != null)
+                {
+                    accessLevel.AccessSchedule = findAccessSchedule;
+                }
             }
+
+            await accessLevelContextHandler.Update(accessLevel);
         }
 
-        public async Task DeleteAccessLevel(string code)
+        public async Task DeleteAccessLevel(AccessLevel accessLevel)
         {
-            var findAccessGroup = await accessLevelContextHandler.FindByCondition(entity => entity.Code.Equals(code));
-            if (findAccessGroup != null)
-            {
-                await accessLevelContextHandler.Delete(findAccessGroup);
-
-                // TODO : Device apply
-            }
+            await accessLevelContextHandler.Delete(accessLevel);
         }
     }
 }

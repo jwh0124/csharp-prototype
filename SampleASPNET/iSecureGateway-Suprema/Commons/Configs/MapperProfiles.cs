@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using iSecureGateway_Suprema.DTO;
+using iSecureGateway_Suprema.Dtos;
 using iSecureGateway_Suprema.Models;
 
 namespace iSecureGateway_Suprema.Commons.Config
@@ -12,6 +13,7 @@ namespace iSecureGateway_Suprema.Commons.Config
             
             CreateMap<AccessLevel, AccessLevelDto>().ReverseMap();
 
+            CreateMap<AccessSchedule, AccessScheduleDto>().ReverseMap();
         }
     }
 }

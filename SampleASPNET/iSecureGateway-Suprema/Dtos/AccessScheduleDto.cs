@@ -1,14 +1,10 @@
-﻿using iSecureGateway_Suprema.Models;
-
-namespace iSecureGateway_Suprema.DTO
+﻿namespace iSecureGateway_Suprema.Dtos
 {
-    public class AccessLevelDto
+    public class AccessScheduleDto
     {
         public required string Code { get; set; }
 
         public required string Name { get; set; }
-
-        public AccessSchedule? AccessSchedule { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

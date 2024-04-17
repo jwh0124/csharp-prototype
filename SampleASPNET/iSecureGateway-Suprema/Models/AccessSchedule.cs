@@ -8,12 +8,13 @@ namespace iSecureGateway_Suprema.Models
     public class AccessSchedule : BaseEntity
     {
         [Key]
-        public string? Code { get; set; }
-        
+        public required string Code { get; set; }
+
+        public required string Name { get; set; }
+
         public uint Id { get; set; }
 
-        public string? Name { get; set; }
 
-        public virtual ICollection<Schedule>? Schedules { get; set; }
+        public virtual ICollection<AccessLevel>? AccessLevels { get; set; }
     }
 }
