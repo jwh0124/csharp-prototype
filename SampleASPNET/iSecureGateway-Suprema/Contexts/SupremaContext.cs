@@ -47,6 +47,13 @@ namespace iSecureGateway_Suprema.Contexts
                 .UsingEntity<AccessGroupAccessLevel>(
                     l => l.HasOne<AccessLevel>().WithMany(e => e.AccessGroupAccessLevels),
                     r => r.HasOne<AccessGroup>().WithMany(e => e.AccessGroupAccessLevels));
+
+            modelBuilder.Entity<Post>()
+                .HasMany(e => e.Authors)
+                .WithMany(e => e.Posts)
+                .UsingEntity<PostAuthor>(
+                    l => l.HasOne<Author>().WithMany(e => e.PostAuthors),
+                    r => r.HasOne<Post>().WithMany(e => e.PostAuthors));
         }
 
         public DbSet<AccessGroup> AccessGroups { get; set; }
@@ -56,5 +63,11 @@ namespace iSecureGateway_Suprema.Contexts
         public DbSet<AccessSchedule> AccessSchedules { get; set; }
 
         public DbSet<AccessGroupAccessLevel> AccessGroupAccessLevels { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
+
+        public DbSet<Author> Authors { get; set; }
+
+        public DbSet<PostAuthor> PostAuthors { get; set; }
     }
 }

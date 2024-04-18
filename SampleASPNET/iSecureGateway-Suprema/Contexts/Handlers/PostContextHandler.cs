@@ -5,96 +5,95 @@ using System.Linq.Expressions;
 
 namespace iSecureGateway_Suprema.Contexts.Handlers
 {
-    public class AccessLevelContextHandler : IBaseRepository<AccessLevel>
+    public class PostContextHandler(IServiceProvider serviceProvider) : IBaseRepository<Post>
     {
-        private readonly IServiceProvider serviceProvider;
+        private readonly IServiceProvider serviceProvider = serviceProvider;
 
-        public AccessLevelContextHandler(IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider;
-        }
-
-        public async Task<ICollection<AccessLevel>> FindAll()
+        public async Task<ICollection<Post>> FindAll()
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
-            return await context.AccessLevels.AsNoTracking().ToListAsync();
+            return await context.Posts.AsNoTracking().ToListAsync();
         }
 
-        public async Task<ICollection<AccessLevel>> FindByConditionList(Expression<Func<AccessLevel, bool>> expression)
+        public async Task<ICollection<Post>> FindByConditionList(Expression<Func<Post, bool>> expression)
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
-            return await context.AccessLevels.Where(expression).AsNoTracking().ToListAsync();
+            return await context.Posts.Where(expression).AsNoTracking().ToListAsync();
         }
 
-        public async Task<AccessLevel?> FindByCondition(Expression<Func<AccessLevel, bool>> expression)
+        public async Task<Post?> FindByCondition(Expression<Func<Post, bool>> expression)
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
-            return await context.AccessLevels.Where(expression).AsNoTracking().FirstOrDefaultAsync();
+            return await context.Posts.Include(navigationPropertyPath: x => x.Authors).Where(expression).AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public async Task Insert(AccessLevel entity)
+        public async Task Insert(Post post)
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
             try
             {
-                if(entity.AccessSchedule != null)
-                {
-                    context.Entry(entity.AccessSchedule).State = EntityState.Unchanged;
+                if(post.Authors !=null){
+                    post.Authors.ToList().ForEach(x => context.Entry(x).State = EntityState.Unchanged);
                 }
-                context.AccessLevels.AddRange(entity);
-                
+
+                context.Posts.AddRange(post);
+
                 await context.SaveChangesAsync();
             }
             catch
             {
-                context.Entry(entity).State = EntityState.Detached;
+                context.Entry(post).State = EntityState.Detached;
                 throw;
             }
         }
-        public async Task Update(AccessLevel entity)
+        public async Task Update(Post post)
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
             try
             {
-                if (entity.AccessSchedule != null)
-                {
-                    context.Entry(entity.AccessSchedule!).State = EntityState.Unchanged;
-                }
-                // context.Entry(entity).State = EntityState.Modified;
-                context.AccessLevels.Update(entity);
+                var entityList = await context.PostAuthors.Where(ag => ag.PostCode!.Equals(post.Code)).ToListAsync();
+                context.PostAuthors.RemoveRange(entityList);
+
+                await context.SaveChangesAsync();
                 
+                if(post.Authors !=null){
+                    post.Authors.ToList().ForEach(x => context.Entry(x).State = EntityState.Unchanged);
+                }
+
+                context.Posts.Update(post);
+
                 await context.SaveChangesAsync();
             }
             catch
             {
-                context.Entry(entity).State = EntityState.Detached;
+                context.Entry(post).State = EntityState.Detached;
                 throw;
             }
         }
 
-        public async Task Delete(AccessLevel entity)
+        public async Task Delete(Post post)
         {
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
             try
             {
-                context.AccessLevels.Remove(entity);
+                context.Posts.Remove(post);
 
                 await context.SaveChangesAsync();
             }
             catch
             {
-                context.Entry(entity).State = EntityState.Detached;
+                context.Entry(post).State = EntityState.Detached;
                 throw;
             }
         }
@@ -104,7 +103,7 @@ namespace iSecureGateway_Suprema.Contexts.Handlers
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
-            return await context.AccessLevels.DefaultIfEmpty().MaxAsync(u => u == null ? 0 : u.Id);
+            return await context.Posts.DefaultIfEmpty().MaxAsync(u => u == null ? 0 : u.Id);
         }
     }
 }

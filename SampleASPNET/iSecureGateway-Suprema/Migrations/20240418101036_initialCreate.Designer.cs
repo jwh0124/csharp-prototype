@@ -12,7 +12,7 @@ using iSecureGateway_Suprema.Contexts;
 namespace iSecureGateway_Suprema.Migrations
 {
     [DbContext(typeof(SupremaContext))]
-    [Migration("20240418040730_initialCreate")]
+    [Migration("20240418101036_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />
@@ -114,6 +114,73 @@ namespace iSecureGateway_Suprema.Migrations
                     b.ToTable("AccessSchedule");
                 });
 
+            modelBuilder.Entity("iSecureGateway_Suprema.Models.Author", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("Author");
+                });
+
+            modelBuilder.Entity("iSecureGateway_Suprema.Models.Post", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("Post");
+                });
+
+            modelBuilder.Entity("iSecureGateway_Suprema.Models.PostAuthor", b =>
+                {
+                    b.Property<string>("AuthorCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PostCode")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("AuthorCode", "PostCode");
+
+                    b.HasIndex("PostCode");
+
+                    b.ToTable("PostAuthor");
+                });
+
             modelBuilder.Entity("iSecureGateway_Suprema.Models.AccessGroupAccessLevel", b =>
                 {
                     b.HasOne("iSecureGateway_Suprema.Models.AccessGroup", null)
@@ -138,6 +205,21 @@ namespace iSecureGateway_Suprema.Migrations
                     b.Navigation("AccessSchedule");
                 });
 
+            modelBuilder.Entity("iSecureGateway_Suprema.Models.PostAuthor", b =>
+                {
+                    b.HasOne("iSecureGateway_Suprema.Models.Author", null)
+                        .WithMany("PostAuthors")
+                        .HasForeignKey("AuthorCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("iSecureGateway_Suprema.Models.Post", null)
+                        .WithMany("PostAuthors")
+                        .HasForeignKey("PostCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("iSecureGateway_Suprema.Models.AccessGroup", b =>
                 {
                     b.Navigation("AccessGroupAccessLevels");
@@ -151,6 +233,16 @@ namespace iSecureGateway_Suprema.Migrations
             modelBuilder.Entity("iSecureGateway_Suprema.Models.AccessSchedule", b =>
                 {
                     b.Navigation("AccessLevels");
+                });
+
+            modelBuilder.Entity("iSecureGateway_Suprema.Models.Author", b =>
+                {
+                    b.Navigation("PostAuthors");
+                });
+
+            modelBuilder.Entity("iSecureGateway_Suprema.Models.Post", b =>
+                {
+                    b.Navigation("PostAuthors");
                 });
 #pragma warning restore 612, 618
         }

@@ -71,6 +71,7 @@ namespace iSecureGateway_Suprema.Controllers
             else
             {
                 findAccessLevel.Name = accessLevelDto.Name;
+                findAccessLevel.AccessSchedule = mapper.Map<AccessSchedule>(accessLevelDto.AccessSchedule);
             }
 
             await accessLevelService.UpdateAccessLevel(mapper.Map<AccessLevel>(findAccessLevel));

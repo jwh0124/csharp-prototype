@@ -40,7 +40,7 @@ namespace iSecureGateway_Union.Commons.Middleware
         {
             var(code, responseEnum) = GetExceptionCodes(exception);
 
-            var exceptionResult = JsonConvert.SerializeObject(new ApiResponseBody<object>(responseEnum));
+            var exceptionResult = JsonConvert.SerializeObject(new ApiResponseBody<object>(responseEnum, exception.Message));
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             await context.Response.WriteAsync(exceptionResult);

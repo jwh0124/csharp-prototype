@@ -67,8 +67,8 @@ namespace iSecureGateway_Suprema.Contexts.Handlers
 
             try
             {
-                var entityList = context.AccessGroupAccessLevels.Where(ag => ag.AccessGroupCode.Equals(entity.Code));
-                context.AccessGroupAccessLevels.RemoveRange(entityList);
+                // var entityList = context.AccessGroupAccessLevels.Where(ag => ag.AccesssGroupCode!.Equals(entity.Code));
+                // context.AccessGroupAccessLevels.RemoveRange(entityList);
 
                 await context.SaveChangesAsync();
 

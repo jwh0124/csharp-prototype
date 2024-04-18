@@ -42,6 +42,36 @@ namespace iSecureGateway_Suprema.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Author",
+                columns: table => new
+                {
+                    Code = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Author", x => x.Code);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Post",
+                columns: table => new
+                {
+                    Code = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Post", x => x.Code);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AccessLevel",
                 columns: table => new
                 {
@@ -60,6 +90,32 @@ namespace iSecureGateway_Suprema.Migrations
                         column: x => x.AccessScheduleCode,
                         principalTable: "AccessSchedule",
                         principalColumn: "Code");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostAuthor",
+                columns: table => new
+                {
+                    PostCode = table.Column<string>(type: "text", nullable: false),
+                    AuthorCode = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostAuthor", x => new { x.AuthorCode, x.PostCode });
+                    table.ForeignKey(
+                        name: "FK_PostAuthor_Author_AuthorCode",
+                        column: x => x.AuthorCode,
+                        principalTable: "Author",
+                        principalColumn: "Code",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PostAuthor_Post_PostCode",
+                        column: x => x.PostCode,
+                        principalTable: "Post",
+                        principalColumn: "Code",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -95,6 +151,11 @@ namespace iSecureGateway_Suprema.Migrations
                 name: "IX_AccessLevel_AccessScheduleCode",
                 table: "AccessLevel",
                 column: "AccessScheduleCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostAuthor_PostCode",
+                table: "PostAuthor",
+                column: "PostCode");
         }
 
         /// <inheritdoc />
@@ -104,10 +165,19 @@ namespace iSecureGateway_Suprema.Migrations
                 name: "AccessGroupAccessLevels");
 
             migrationBuilder.DropTable(
+                name: "PostAuthor");
+
+            migrationBuilder.DropTable(
                 name: "AccessGroup");
 
             migrationBuilder.DropTable(
                 name: "AccessLevel");
+
+            migrationBuilder.DropTable(
+                name: "Author");
+
+            migrationBuilder.DropTable(
+                name: "Post");
 
             migrationBuilder.DropTable(
                 name: "AccessSchedule");

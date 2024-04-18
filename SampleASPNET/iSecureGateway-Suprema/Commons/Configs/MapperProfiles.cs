@@ -14,6 +14,10 @@ namespace iSecureGateway_Suprema.Commons.Config
             CreateMap<AccessLevel, AccessLevelDto>().ReverseMap();
 
             CreateMap<AccessSchedule, AccessScheduleDto>().ReverseMap();
+
+            CreateMap<Post, PostDto>().ReverseMap();
+
+            CreateMap<Author, AuthorDto>().ReverseMap();
         }
     }
 }
