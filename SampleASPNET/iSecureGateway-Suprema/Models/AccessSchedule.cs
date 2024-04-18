@@ -14,7 +14,6 @@ namespace iSecureGateway_Suprema.Models
 
         public uint Id { get; set; }
 
-
         public virtual ICollection<AccessLevel>? AccessLevels { get; set; }
     }
 }

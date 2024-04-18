@@ -12,7 +12,7 @@ using iSecureGateway_Suprema.Contexts;
 namespace iSecureGateway_Suprema.Migrations
 {
     [DbContext(typeof(SupremaContext))]
-    [Migration("20240417100400_initialCreate")]
+    [Migration("20240418040730_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />
@@ -24,21 +24,6 @@ namespace iSecureGateway_Suprema.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("AccessGroupAccessLevel", b =>
-                {
-                    b.Property<string>("AccessGroupsCode")
-                        .HasColumnType("text");
-
-                    b.Property<string>("AccessLevelsCode")
-                        .HasColumnType("text");
-
-                    b.HasKey("AccessGroupsCode", "AccessLevelsCode");
-
-                    b.HasIndex("AccessLevelsCode");
-
-                    b.ToTable("AccessGroupAccessLevel");
-                });
 
             modelBuilder.Entity("iSecureGateway_Suprema.Models.AccessGroup", b =>
                 {
@@ -61,6 +46,21 @@ namespace iSecureGateway_Suprema.Migrations
                     b.HasKey("Code");
 
                     b.ToTable("AccessGroup");
+                });
+
+            modelBuilder.Entity("iSecureGateway_Suprema.Models.AccessGroupAccessLevel", b =>
+                {
+                    b.Property<string>("AccessGroupCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AccessLevelCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("AccessGroupCode", "AccessLevelCode");
+
+                    b.HasIndex("AccessLevelCode");
+
+                    b.ToTable("AccessGroupAccessLevels");
                 });
 
             modelBuilder.Entity("iSecureGateway_Suprema.Models.AccessLevel", b =>
@@ -106,6 +106,7 @@ namespace iSecureGateway_Suprema.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Code");
@@ -113,17 +114,17 @@ namespace iSecureGateway_Suprema.Migrations
                     b.ToTable("AccessSchedule");
                 });
 
-            modelBuilder.Entity("AccessGroupAccessLevel", b =>
+            modelBuilder.Entity("iSecureGateway_Suprema.Models.AccessGroupAccessLevel", b =>
                 {
                     b.HasOne("iSecureGateway_Suprema.Models.AccessGroup", null)
-                        .WithMany()
-                        .HasForeignKey("AccessGroupsCode")
+                        .WithMany("AccessGroupAccessLevels")
+                        .HasForeignKey("AccessGroupCode")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("iSecureGateway_Suprema.Models.AccessLevel", null)
-                        .WithMany()
-                        .HasForeignKey("AccessLevelsCode")
+                        .WithMany("AccessGroupAccessLevels")
+                        .HasForeignKey("AccessLevelCode")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -135,6 +136,16 @@ namespace iSecureGateway_Suprema.Migrations
                         .HasForeignKey("AccessScheduleCode");
 
                     b.Navigation("AccessSchedule");
+                });
+
+            modelBuilder.Entity("iSecureGateway_Suprema.Models.AccessGroup", b =>
+                {
+                    b.Navigation("AccessGroupAccessLevels");
+                });
+
+            modelBuilder.Entity("iSecureGateway_Suprema.Models.AccessLevel", b =>
+                {
+                    b.Navigation("AccessGroupAccessLevels");
                 });
 
             modelBuilder.Entity("iSecureGateway_Suprema.Models.AccessSchedule", b =>

@@ -9,11 +9,13 @@ namespace iSecureGateway_Suprema.Models
     {
         [Key]
         public required string Code { get; set; }
-        
-        public uint Id { get; set; }
 
         public required string Name { get; set; }
 
-        public virtual ICollection<AccessLevel>? AccessLevels { get; set; }
+        public uint Id { get; set; }
+
+        public virtual ICollection<AccessLevel>? AccessLevels { get; set; } = [];
+
+        public virtual ICollection<AccessGroupAccessLevel>? AccessGroupAccessLevels {  get; set; }  
     }
 }

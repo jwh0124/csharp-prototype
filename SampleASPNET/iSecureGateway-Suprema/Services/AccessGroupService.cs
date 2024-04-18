@@ -55,6 +55,20 @@ namespace iSecureGateway_Suprema.Services
 
         public async Task UpdateAccessGroup(AccessGroup accessGroup)
         {
+            if (accessGroup.AccessLevels?.Count > 0)
+            {
+                ICollection<AccessLevel> accessLevels = [];
+                accessGroup.AccessLevels.ToList().ForEach(async accessLevel =>
+                {
+                    var findAccessLevel = await accessLevelContextHandler.FindByCondition(entity => entity.Code.Equals(accessLevel.Code));
+                    if (findAccessLevel != default(AccessLevel))
+                    {
+                        accessLevels.Add(findAccessLevel);
+                    }
+                });
+                accessGroup.AccessLevels = accessLevels;
+            }
+
             await accessGroupContextHandler.Update(accessGroup);
         }
 

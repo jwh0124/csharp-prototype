@@ -2,6 +2,7 @@
 using iSecureGateway_Suprema.Commons.Base;
 using iSecureGateway_Suprema.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace iSecureGateway_Suprema.Contexts
 {
@@ -38,10 +39,22 @@ namespace iSecureGateway_Suprema.Contexts
             optionsBuilder.UseExceptionProcessor();
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AccessGroup>()
+                .HasMany(e => e.AccessLevels)
+                .WithMany(e => e.AccessGroups)
+                .UsingEntity<AccessGroupAccessLevel>(
+                    l => l.HasOne<AccessLevel>().WithMany(e => e.AccessGroupAccessLevels),
+                    r => r.HasOne<AccessGroup>().WithMany(e => e.AccessGroupAccessLevels));
+        }
+
         public DbSet<AccessGroup> AccessGroups { get; set; }
 
         public DbSet<AccessLevel> AccessLevels { get; set; }
 
         public DbSet<AccessSchedule> AccessSchedules { get; set; }
+
+        public DbSet<AccessGroupAccessLevel> AccessGroupAccessLevels { get; set; }
     }
 }

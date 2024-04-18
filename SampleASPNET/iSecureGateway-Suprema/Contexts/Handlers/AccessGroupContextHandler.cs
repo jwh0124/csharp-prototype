@@ -34,7 +34,7 @@ namespace iSecureGateway_Suprema.Contexts.Handlers
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<SupremaContext>();
 
-            return await context.AccessGroups.Where(expression).AsNoTracking().FirstOrDefaultAsync();
+            return await context.AccessGroups.Include(ag => ag.AccessLevels).Where(expression).AsNoTracking().FirstOrDefaultAsync();
         }
 
         public async Task Insert(AccessGroup entity)
@@ -44,7 +44,13 @@ namespace iSecureGateway_Suprema.Contexts.Handlers
 
             try
             {
-                context.AccessGroups.Add(entity);
+                //context.AccessGroups.Add(entity);
+                context.Entry(entity).State = EntityState.Added;
+
+                if (entity.AccessLevels != null)
+                {
+                    entity.AccessLevels.ToList().ForEach(item => context.Entry(item).State = EntityState.Unchanged);
+                }
 
                 await context.SaveChangesAsync();
             }
@@ -61,7 +67,19 @@ namespace iSecureGateway_Suprema.Contexts.Handlers
 
             try
             {
-                context.Entry(entity).State = EntityState.Modified;
+                var entityList = context.AccessGroupAccessLevels.Where(ag => ag.AccessGroupCode.Equals(entity.Code));
+                context.AccessGroupAccessLevels.RemoveRange(entityList);
+
+                await context.SaveChangesAsync();
+
+                if (entity.AccessLevels != null)
+                {
+                    entity.AccessLevels.ToList().ForEach(item => context.Entry(item).State = EntityState.Detached);
+                }
+
+                context.AccessGroups.UpdateRange(entity);
+
+
 
                 await context.SaveChangesAsync();
             }

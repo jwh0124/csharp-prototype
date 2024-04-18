@@ -3,6 +3,7 @@ using iSecureGateway_Suprema.Commons.Http.Response;
 using iSecureGateway_Suprema.DTO;
 using iSecureGateway_Suprema.Interfaces;
 using iSecureGateway_Suprema.Models;
+using iSecureGateway_Suprema.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iSecureGateway_Suprema.Controllers
@@ -59,7 +60,22 @@ namespace iSecureGateway_Suprema.Controllers
         {
             logger.LogDebug("AccessGroupController >>> PutAccessGroup");
 
-            await accessGroupService.UpdateAccessGroup(mapper.Map<AccessGroup>(accessGroupDto));
+            var findAccessGroup = await accessGroupService.RetrieveAccessGroup(code);
+
+            if (findAccessGroup == null)
+            {
+                return NotFound(new ApiResponseBody<object>(ApiResponse.NOT_FOUND));
+            }
+            else
+            {
+                findAccessGroup.Name = accessGroupDto.Name;
+            }
+
+            var test = mapper.Map<AccessGroup>(accessGroupDto);
+
+            
+
+            await accessGroupService.UpdateAccessGroup(mapper.Map<AccessGroup>(test));
 
             return Ok(new ApiResponseBody<object>(ApiResponse.SUCCESS));
         }

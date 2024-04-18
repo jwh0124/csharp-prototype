@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using iSecureGateway_Suprema.Commons.Http.Response;
-using iSecureGateway_Suprema.Contexts.Handlers;
 using iSecureGateway_Suprema.DTO;
 using iSecureGateway_Suprema.Interfaces;
 using iSecureGateway_Suprema.Models;
