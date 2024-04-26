@@ -1,22 +1,22 @@
 public class CommonApply
 {
-    public delegate bool DeviceApplyAction(int deviceId);
+    public delegate bool DeviceApplyAction(int deviceId, ICollection<int> b);
+    
     private readonly ILogger<CommonApply> logger;
-    private readonly PostApply postApply;
 
-    public CommonApply(ILogger<CommonApply> logger, PostApply postApply)
+    public CommonApply(ILogger<CommonApply> logger)
     {
         this.logger = logger;
-        this.postApply = postApply;
     }
 
-    public Task<ICollection<int>> DeviceApply(DeviceApplyAction deviceAction){
+    public Task<ICollection<int>> DeviceApply(DeviceApplyAction deviceAction, ICollection<int> b)
+    {
         int[] deviceIdList = { 1, 2, 3, 4, 5, 6 };
 
         ICollection<int> successDevice = [];
 
         Parallel.ForEach(deviceIdList, (deviceId) => {
-            var result = deviceAction(deviceId);
+            var result = deviceAction(deviceId , b);
             if(result){
                 successDevice.Add(deviceId);
             }

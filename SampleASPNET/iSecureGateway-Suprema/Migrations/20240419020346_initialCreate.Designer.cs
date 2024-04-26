@@ -12,7 +12,7 @@ using iSecureGateway_Suprema.Contexts;
 namespace iSecureGateway_Suprema.Migrations
 {
     [DbContext(typeof(SupremaContext))]
-    [Migration("20240418101036_initialCreate")]
+    [Migration("20240419020346_initialCreate")]
     partial class initialCreate
     {
         /// <inheritdoc />

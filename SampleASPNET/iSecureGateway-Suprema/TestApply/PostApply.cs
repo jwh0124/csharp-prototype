@@ -9,8 +9,8 @@ public class PostApply
         _logger = logger;
     }
 
-     public bool PostDeviceApply(PostDto postDto){
-        _logger.LogInformation("Start Device Apply : {PostCode}", postDto.Code);
+     public bool PostDeviceApply(int deviceId, PostDto postDto){
+        _logger.LogInformation("Start Device Apply : {deviceId}", deviceId);
         Random random= new Random();
         int a = random.Next(1, 3);
         Thread.Sleep(a * 1000);

@@ -3,7 +3,6 @@ using iSecureGateway_Suprema.Commons.Http.Response;
 using iSecureGateway_Suprema.DTO;
 using iSecureGateway_Suprema.Interfaces;
 using iSecureGateway_Suprema.Models;
-using iSecureGateway_Suprema.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iSecureGateway_Suprema.Controllers

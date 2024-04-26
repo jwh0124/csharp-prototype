@@ -1,8 +1,11 @@
 using FluentValidation.AspNetCore;
 using iSecureGateway_Suprema;
 using iSecureGateway_Suprema.Commons.Config;
+using iSecureGateway_Suprema.Commons.Filters;
+using iSecureGateway_Suprema.Commons.Http.Response;
 using iSecureGateway_Suprema.Contexts;
 using iSecureGateway_Union.Commons.Middleware;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MQTTnet.AspNetCore;
@@ -73,7 +76,18 @@ builder.Services.AddHostedService<Worker>();
 
 builder.Host.UseWindowsService(option => option.ServiceName = "ISecureGateway-Suprema");
 
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddControllers().AddNewtonsoftJson().ConfigureApiBehaviorOptions(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var errorField = context.ModelState.FirstOrDefault();
+        if(errorField.Value != null)
+        {
+            return new JsonResult(new ApiResponseBody<object>(ApiResponse.REQUIRED_FIELD, errorField.Value.Errors[0].ErrorMessage));
+        }
+        return new JsonResult(new ApiResponseBody<object>(ApiResponse.REQUIRED_FIELD));
+    };
+});
 // .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve)
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

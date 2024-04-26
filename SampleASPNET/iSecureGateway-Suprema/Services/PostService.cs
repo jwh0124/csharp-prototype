@@ -41,7 +41,18 @@ namespace iSecureGateway_Suprema.Services
 
             var postDto = postMapper.EntityToDomain(Post);
 
-            await commonApply.DeviceApply((int deviceId) => postApply.PostDeviceApply(postDto));
+            int[] deviceIdList = { 1, 2, 3, 4, 5, 6 };
+
+            ICollection<int> successDevice = [];
+
+            Parallel.ForEach(deviceIdList, (deviceId) => {
+                var result = postApply.PostDeviceApply(deviceId, postDto);
+                if (result)
+                {
+                    successDevice.Add(deviceId);
+                }
+            });
+            logger.LogInformation("{successDevice}",successDevice);
 
             return Post;
         }

@@ -17,6 +17,10 @@ namespace iSecureGateway_Suprema.Commons.Http.Response
         NOT_FOUND,
 
         [Category("A002")]
+        [Description("Required field error")]
+        REQUIRED_FIELD,
+
+        [Category("A002")]
         [Description("Duplicate key")]
         DUPLICATE_KEY,
 

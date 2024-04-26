@@ -24,7 +24,7 @@ namespace iSecureGateway_Union.Commons.Middleware
                 await next(httpContext);
             }
             catch (Exception exception)
-            {
+            { 
                 await HandleExceptionAsync(httpContext,exception);
             }
         }
