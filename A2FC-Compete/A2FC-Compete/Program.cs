@@ -39,7 +39,7 @@ if (matchDate != null && gameAttendeesList.Length > 0) {
     var matchInsertResult = appendMatchRequest.Execute();
     if (matchInsertResult.Updates.UpdatedRows > 0)
     {
-        Console.WriteLine($"Google Sheet Data Insert Success : {matchDate}", matchDate);
+        Console.WriteLine($"경기 진행 일자 추가 완료 : {matchDate}", matchDate);
     }
 
     foreach (var user in gameAttendeesList)
@@ -52,7 +52,7 @@ if (matchDate != null && gameAttendeesList.Length > 0) {
         var result = appendRequest.Execute();
         if(result.Updates.UpdatedRows > 0)
         {
-            Console.WriteLine($"Google Sheet Data Insert Success : {user}", user);
+            Console.WriteLine($"참석자 추가 완료 : {user}", user);
         }
     }
 }
