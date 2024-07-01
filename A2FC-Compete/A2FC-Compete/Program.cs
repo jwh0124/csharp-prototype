@@ -4,7 +4,6 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
-using static Google.Apis.Requests.BatchRequest;
 using static Google.Apis.Sheets.v4.SpreadsheetsResource.ValuesResource;
 
 const string APPLICATION_NAME = "A2FC";
@@ -28,17 +27,27 @@ Console.Write("Game attendees :");
 string? gameAttendees = Console.ReadLine();
 string[] gameAttendeesList = gameAttendees!.Split(',');
 const string SPREADSHEET_ID = "1Jph1ZFo4PldgaBD1VtATVx188QFRkO135HYbvGA6B3U";
-const string SHEET_NAME = "참석이력";
+const string MATCH_SHEET_NAME = "경기이력";
+const string MATCH_HISTORY_SHEET_NAME = "참석이력";
 
 if (matchDate != null && gameAttendeesList.Length > 0) {
     SpreadsheetsResource.ValuesResource _googleSheetValues = sheetService.Spreadsheets.Values;
 
+    var matchrange = $"{MATCH_SHEET_NAME}!B:B";
+    var appendMatchRequest = _googleSheetValues.Append(new ValueRange { Values = MapToMatchRangeData(matchDate) }, SPREADSHEET_ID, matchrange);
+    appendMatchRequest.ValueInputOption = AppendRequest.ValueInputOptionEnum.USERENTERED;
+    var matchInsertResult = appendMatchRequest.Execute();
+    if (matchInsertResult.Updates.UpdatedRows > 0)
+    {
+        Console.WriteLine($"Google Sheet Data Insert Success : {matchDate}", matchDate);
+    }
+
     foreach (var user in gameAttendeesList)
     {
-        var attendHisory = new CompeteHistory { Date = matchDate, Name = user.Trim() };
-        var range = $"{SHEET_NAME}!B:C";
+        var matchdHisory = new CompeteHistory { Date = matchDate, Name = user.Trim() };
+        var matchHistoryrange = $"{MATCH_HISTORY_SHEET_NAME}!B:C";
 
-        var appendRequest = _googleSheetValues.Append(new ValueRange { Values = MapToRangeData(attendHisory) }, SPREADSHEET_ID, range);
+        var appendRequest = _googleSheetValues.Append(new ValueRange { Values = MapToMatchHistoryRangeData(matchdHisory) }, SPREADSHEET_ID, matchHistoryrange);
         appendRequest.ValueInputOption = AppendRequest.ValueInputOptionEnum.USERENTERED;
         var result = appendRequest.Execute();
         if(result.Updates.UpdatedRows > 0)
@@ -48,7 +57,14 @@ if (matchDate != null && gameAttendeesList.Length > 0) {
     }
 }
 
-static IList<IList<object>> MapToRangeData(CompeteHistory competeHistory)
+static IList<IList<object>> MapToMatchRangeData(string match)
+{
+    var objectList = new List<object>() { match };
+    var rangeData = new List<IList<object>> { objectList };
+    return rangeData;
+}
+
+static IList<IList<object>> MapToMatchHistoryRangeData(CompeteHistory competeHistory)
 {
     var objectList = new List<object>() { competeHistory.Date, competeHistory.Name };
     var rangeData = new List<IList<object>> { objectList };
